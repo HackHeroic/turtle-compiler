@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<script src="js/compiler.js"></script>
+<script src="js/tc-view.js"></script>
+<style>
+:root{--bg:oklch(0.975 0.007 85);--surface:oklch(0.995 0.003 85);--surface2:oklch(0.955 0.01 85);--ink:oklch(0.23 0.02 265);--ink2:oklch(0.40 0.02 265);--ink3:oklch(0.50 0.015 265);--line:oklch(0.89 0.01 85);--line2:oklch(0.82 0.012 85);--grid:oklch(0.23 0.02 265 / 0.045);--grid-major:oklch(0.23 0.02 265 / 0.08);--accent:oklch(0.42 0.10 250);--accent-ink:#fff;--good:oklch(0.47 0.11 155);--goodbg:oklch(0.94 0.045 155);--bad:oklch(0.50 0.17 28);--badbg:oklch(0.94 0.04 28);--warn:oklch(0.55 0.13 70);--warnbg:oklch(0.94 0.06 85);--p1:oklch(0.60 0.19 355);--p2:oklch(0.65 0.16 50);--p3:oklch(0.76 0.14 92);--p4:oklch(0.62 0.15 138);--p5:oklch(0.64 0.12 222);--p6:oklch(0.57 0.17 295);--p1-ink:oklch(0.48 0.18 355);--p2-ink:oklch(0.50 0.14 45);--p3-ink:oklch(0.47 0.10 85);--p4-ink:oklch(0.45 0.12 138);--p5-ink:oklch(0.46 0.10 225);--p6-ink:oklch(0.46 0.16 295);--p1-soft:oklch(0.95 0.03 355);--p2-soft:oklch(0.95 0.035 55);--p3-soft:oklch(0.96 0.05 95);--p4-soft:oklch(0.95 0.04 138);--p5-soft:oklch(0.95 0.03 222);--p6-soft:oklch(0.95 0.03 295);--tk-kw:oklch(0.50 0.19 355);--tk-name:oklch(0.48 0.14 258);--tk-num:oklch(0.50 0.11 70);--tk-sym:oklch(0.50 0.12 300);--tk-com:oklch(0.56 0.015 265);--loop1:oklch(0.94 0.035 258);--loop1-edge:oklch(0.55 0.14 258);--loop2:oklch(0.94 0.04 300);--loop2-edge:oklch(0.52 0.15 300);--loop3:oklch(0.94 0.035 200);--loop3-edge:oklch(0.52 0.10 200);--shadow-1:0 1px 2px oklch(0.23 0.02 265 / 0.05);--shadow-2:0 14px 34px -16px oklch(0.23 0.02 265 / 0.25)}
+html,body{margin:0;padding:0;background:var(--bg)}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box;font-variant-ligatures:no-contextual}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button,input,textarea,select{font-family:inherit}
+textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+<div id="top" style="container-type: inline-size; min-height: 100vh; background-color: var(--bg); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 28px 28px; color: var(--ink); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.5;">
+
+  <nav aria-label="Main" style="position: sticky; top: 0; z-index: 10; background: color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);">
+    <div style="max-width: 1340px; margin: 0 auto; padding: 10px clamp(16px, 4cqi, 48px) 0; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="Turtle Compiler.dc.html" aria-label="Turtle Compiler, home" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); padding: 4px 6px 4px 0;">
+          <svg aria-hidden="true" width="44" height="44" viewBox="0 0 40 40" style="flex: 0 0 auto; display: block; border-radius: 12px; box-shadow: 0 1px 0 oklch(1 0 0 / .08) inset, 0 6px 16px -8px oklch(0.23 0.02 265 / .6);"><rect width="40" height="40" rx="11" fill="oklch(0.23 0.02 265)"></rect><rect x="0.5" y="0.5" width="39" height="39" rx="10.5" fill="none" stroke="oklch(1 0 0 / .08)"></rect><g fill="none" stroke-width="2.8" stroke-linecap="round"><line x1="20" y1="9.5" x2="29.53" y2="15" stroke="oklch(0.70 0.19 355)"></line><line x1="29.53" y1="15" x2="29.53" y2="26" stroke="oklch(0.76 0.16 50)"></line><line x1="29.53" y1="26" x2="20" y2="31.5" stroke="oklch(0.86 0.15 92)"></line><line x1="20" y1="31.5" x2="10.47" y2="26" stroke="oklch(0.76 0.16 138)"></line><line x1="10.47" y1="26" x2="10.47" y2="15" stroke="oklch(0.76 0.12 222)"></line><line x1="10.47" y1="15" x2="20" y2="9.5" stroke="oklch(0.70 0.17 295)"></line></g><polygon points="24.2,7.1 20.3,12.9 17.1,7.4" fill="oklch(0.995 0.003 85)"></polygon></svg>
+          <span style="display: flex; flex-direction: column;"><span style="font-family: 'Newsreader', serif; font-size: 24px; font-weight: 600; line-height: 1;">Turtle Compiler</span><span style="font-size: 12px; color: var(--ink3); margin-top: 3px;">Six phases, live in your browser</span></span>
+        </a>
+        <div style="margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
+          <a href="Language Reference.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Reference</a>
+          <a href="Team.dc.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: none; background: var(--ink); color: var(--surface); font-size: 14px; font-weight: 600; text-decoration: none;">Team</a>
+          <a href="Present.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Present</a>
+        </div>
+      </div>
+      <div role="list" aria-label="Phases" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin;">
+        <a role="listitem" href="Turtle Compiler.dc.html#workbench" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">Workbench</a>
+        <a role="listitem" href="Turtle Compiler.dc.html#lexer" aria-label="Phase 1, Lexical analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p1); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p1-ink);">01</span>Lexer<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p1); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#parser" aria-label="Phase 2, Syntax analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p2); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p2-ink);">02</span>Parser<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p2); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#semantic" aria-label="Phase 3, Semantic analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p3); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p3-ink);">03</span>Semantic<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p3); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#intermediate" aria-label="Phase 4, Intermediate code generation" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p4); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p4-ink);">04</span>IR<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p4); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#optimizer" aria-label="Phase 5, Code optimization" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p5); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p5-ink);">05</span>Optimizer<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p5); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#codegen" aria-label="Phase 6, Code generation" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p6); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p6-ink);">06</span>Code gen<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p6); box-shadow: none;"></span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header style="max-width: 1340px; margin: 0 auto; padding: clamp(32px, 6cqi, 72px) clamp(16px, 4cqi, 48px) clamp(20px, 3cqi, 32px); display: flex; flex-direction: column; gap: 16px;">
+    <span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">Team</span>
+    <h1 style="margin: 0; max-width: 16ch; font-family: 'Newsreader', serif; font-weight: 500; font-size: clamp(42px, 6.4cqi, 84px); line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance;">Five of us built one compiler</h1>
+    <p style="margin: 0; max-width: 62ch; font-size: clamp(17px, 1.6cqi, 20px); color: var(--ink2); text-wrap: pretty;">Turtle Compiler takes a small drawing language through all six phases of a real compiler and shows each one at work. It runs entirely in your browser, and the same compiler ships as <code style="font: 600 0.9em 'JetBrains Mono', monospace; color: var(--ink);">turtlec</code> for the command line.</p>
+  </header>
+
+  <main style="max-width: 1340px; margin: 0 auto; padding: 0 clamp(16px, 4cqi, 48px); display: flex; flex-direction: column; gap: clamp(48px, 6cqi, 72px);">
+
+    <section aria-labelledby="team-people" style="display: flex; flex-direction: column; gap: 20px;">
+      <h2 id="team-people" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;">The team</h2>
+      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px;">
+        <sc-for list="{{ people }}" as="m" hint-placeholder-count="5">
+          <li style="display: flex; flex-direction: column; gap: 18px; padding: 22px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid {{ m.hue }};">
+            <span aria-hidden="true" style="display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: {{ m.soft }}; color: {{ m.ink }}; font-family: 'Newsreader', serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">{{ m.initials }}</span>
+            <span style="font-family: 'Newsreader', serif; font-size: 26px; font-weight: 500; line-height: 1.1; text-wrap: balance;">{{ m.name }}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="team-what" style="display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">The project</span><h2 id="team-what" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: clamp(30px, 3.6cqi, 44px); line-height: 1.08; letter-spacing: -0.01em; text-wrap: balance;">What we made</h2></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: stretch;">
+        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+          <h3 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px; line-height: 1.15;">Six phases, all visible</h3>
+          <p style="margin: 0; font-size: 16px; color: var(--ink2); text-wrap: pretty;">Your program goes from characters to tokens, a parse tree, a checked tree, three-address code, shorter code and finally machine code for a small Turtle VM, which draws the picture.</p>
+          <ol aria-label="The six phases" style="list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px;">
+            <sc-for list="{{ phases }}" as="p" hint-placeholder-count="6">
+              <li style="display: flex; align-items: baseline; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line);"><span style="flex: 0 0 30px; font-family: 'Newsreader', serif; font-size: 22px; font-weight: 500; line-height: 1; color: {{ p.hueInk }};">0{{ p.n }}</span><span style="font-weight: 600;">{{ p.name }}</span></li>
+            </sc-for>
+          </ol>
+        </article>
+        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+          <h3 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px; line-height: 1.15;">It runs in your browser</h3>
+          <p style="margin: 0; font-size: 16px; color: var(--ink2); text-wrap: pretty;">Every keystroke runs the whole compiler again, from the first token to the last instruction. Nothing is sent to a server: the page is the compiler.</p>
+          <dl style="margin: 4px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+            <sc-for list="{{ facts }}" as="f" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column-reverse; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px;">
+                <dt style="font-size: 14px; color: var(--ink2);">{{ f.label }}</dt>
+                <dd style="margin: 0; font-family: 'Newsreader', serif; font-size: 34px; font-weight: 500; line-height: 1;">{{ f.value }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+        </article>
+        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+          <h3 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px; line-height: 1.15;">And on the command line</h3>
+          <p style="margin: 0; font-size: 16px; color: var(--ink2); text-wrap: pretty;"><code style="font: 600 14px 'JetBrains Mono', monospace;">turtlec</code> runs the same compiler in a terminal. It prints what any phase made, saves the drawing as SVG and the machine code as a <code style="font: 600 14px 'JetBrains Mono', monospace;">.tvm</code> file it can run again.</p>
+          <pre style="margin: 4px 0 0; padding: 14px 16px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line); font: 500 14px/1.7 'JetBrains Mono', monospace; overflow-x: auto;"><span style="color: var(--ink3);">$ </span><span style="color: var(--tk-kw); font-weight: 600;">turtlec</span> star.turtle
+<span style="color: var(--ink3);">$ </span><span style="color: var(--tk-kw); font-weight: 600;">turtlec</span> star.turtle --phase opt
+<span style="color: var(--ink3);">$ </span><span style="color: var(--tk-kw); font-weight: 600;">turtlec</span> star.turtle --svg star.svg</pre>
+          <a href="Language Reference.dc.html" style="margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; text-decoration: none;">Every option is in the language reference<span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="team-how" style="display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">How it was built</span><h2 id="team-how" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: clamp(30px, 3.6cqi, 44px); line-height: 1.08; letter-spacing: -0.01em; text-wrap: balance;">One compiler, one design system</h2></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 20px; align-items: stretch;">
+        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+          <h3 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px; line-height: 1.15;">compiler.js, shared by the site and the CLI</h3>
+          <p style="margin: 0; font-size: 16px; color: var(--ink2); text-wrap: pretty;">All six phases live in one plain JavaScript file with no page code in it. The website and <code style="font: 600 14px 'JetBrains Mono', monospace;">turtlec</code> both load that file, so a rule fixed once is fixed everywhere. The grammar, the limits, the colours and the opcodes are tables in it, and every page reads them from there.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); gap: 10px;">
+            <sc-for list="{{ tables }}" as="t" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 12px; background: {{ t.soft }}; border: 1px solid var(--line);">
+                <span style="font-family: 'Newsreader', serif; font-size: 34px; font-weight: 500; line-height: 1; color: {{ t.ink }};">{{ t.value }}</span>
+                <span style="font-size: 14px; color: var(--ink2);">{{ t.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </article>
+        <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+          <h3 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px; line-height: 1.15;">A design system first</h3>
+          <p style="margin: 0; font-size: 16px; color: var(--ink2); text-wrap: pretty;">We drew the pages before we built them: one paper palette, a hue for each phase, and three typefaces. The website is generated from those design files and checked against them pixel for pixel.</p>
+          <div aria-label="Phase hues" role="img" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px;">
+            <sc-for list="{{ phases }}" as="p" hint-placeholder-count="6">
+              <span style="display: flex; align-items: flex-end; height: 56px; padding: 6px 8px; border-radius: 10px; background: {{ p.hue }}; color: var(--surface); font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600;">0{{ p.n }}</span>
+            </sc-for>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);"><span style="font-family: 'Newsreader', serif; font-size: 24px; font-weight: 500;">Newsreader</span><span style="font-size: 14px; color: var(--ink3);">headings and numbers</span></li>
+            <li style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);"><span style="font-size: 20px; font-weight: 600;">Instrument Sans</span><span style="font-size: 14px; color: var(--ink3);">everything you read</span></li>
+            <li style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;"><span style="font: 600 18px 'JetBrains Mono', monospace;">JetBrains Mono</span><span style="font-size: 14px; color: var(--ink3);">code, tokens and bytes</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <p style="margin: 0; display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--ink2);"><span aria-hidden="true" style="flex: 0 0 auto; display: grid; grid-template-columns: repeat(6, 6px); gap: 3px;"><span style="height: 6px; border-radius: 2px; background: var(--p1);"></span><span style="height: 6px; border-radius: 2px; background: var(--p2);"></span><span style="height: 6px; border-radius: 2px; background: var(--p3);"></span><span style="height: 6px; border-radius: 2px; background: var(--p4);"></span><span style="height: 6px; border-radius: 2px; background: var(--p5);"></span><span style="height: 6px; border-radius: 2px; background: var(--p6);"></span></span>Built for the Compiler Design and Automata course.</p>
+  </main>
+
+  <footer style="max-width: 1340px; margin: 72px auto 0; padding: 28px clamp(16px, 4cqi, 48px) 48px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; font-size: 15px; color: var(--ink2);">
+    <span style="font-family: 'Newsreader', serif; font-size: 20px; color: var(--ink);">Turtle Compiler</span>
+    <span>All six phases run in your browser. Nothing is sent anywhere.</span>
+    <span style="margin-left: auto; display: flex; gap: 16px;"><a href="Turtle Compiler.dc.html">Compiler</a><a href="Language Reference.dc.html">Language reference</a><a href="#top">Back to top</a></span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  static PEOPLE = ['C Murali Madhav', 'Pugazhendhi J', 'Tejmul Movin', 'J Amathziah', 'Ravi Yadav'];
+  state = { ready: false };
+
+  componentDidMount() {
+    const ok = () => window.TC && window.TCV;
+    if (ok()) this.setState({ ready: true });
+    else this.wait = setInterval(() => { if (ok()) { clearInterval(this.wait); this.setState({ ready: true }); } }, 40);
+  }
+  componentWillUnmount() { clearInterval(this.wait); }
+
+  renderVals() {
+    const initials = name => name.split(' ').map(w => w[0]).join('').slice(0, 3);
+    const people = Component.PEOPLE.map((name, k) => ({ name, initials: initials(name), hue: `var(--p${k + 1})`, soft: `var(--p${k + 1}-soft)`, ink: `var(--p${k + 1}-ink)` }));
+    const base = { people, phases: [], facts: [], tables: [] };
+    if (!this.state.ready || !window.TC || !window.TCV) return base;
+    const phases = TCV.PHASES.map(p => ({ n: p.n, name: p.name, hue: `var(--p${p.n})`, hueInk: `var(--p${p.n}-ink)` }));
+    const r = TC.compile(TCV.SAMPLES[0].src);
+    const facts = [
+      [String(r.lex.tokens.length - 1), 'tokens in the Star'],
+      [String(r.gen.prog.length), 'machine instructions'],
+      [`${r.opt.stats.before}→${r.opt.stats.after}`, 'lines after phase 5'],
+      [r.run.steps.toLocaleString('en-US'), 'VM steps to draw it']
+    ].map(([value, label]) => ({ value, label }));
+    const tables = [
+      [TC.GRAMMAR.length, 'grammar rules', 2],
+      [8, 'semantic rules', 3],
+      [Object.keys(TC.OPT_RULES).length, 'optimizations', 5],
+      [Object.keys(TC.OPCODES).length, 'VM opcodes', 6]
+    ].map(([value, label, n]) => ({ value, label, ink: `var(--p${n}-ink)`, soft: `var(--p${n}-soft)` }));
+    return { ...base, phases, facts, tables };
+  }
+}
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "convert": "node ../tools/dc2jsx.mjs",
+    "convert": "node tools/dc2jsx.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "npx serve out"
