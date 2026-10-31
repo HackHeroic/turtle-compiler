@@ -1,0 +1,16 @@
+{
+  "name": "turtlec",
+  "version": "0.1.0",
+  "description": "Command-line front end for the Turtle graphics compiler",
+  "private": true,
+  "license": "MIT",
+  "bin": {
+    "turtlec": "turtlec.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test"
+  }
+}
