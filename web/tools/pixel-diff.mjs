@@ -2,7 +2,7 @@
 /* Pixel-diff the built site against the Claude Design files.
 
    Usage: node tools/pixel-diff.mjs [page ...]    pages: home reference team present (default: all that exist)
-   Needs: `npm run build` first (serves ./out), and Google Chrome installed.
+   Needs: `npm run build` first (serves ./out), and Google Chrome installed. Set SITE_URL to diff a deployed site.
    Writes screenshots and diff images to ./.pixel-diff/ and prints the mismatch per page and width. */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -70,7 +70,8 @@ function compare(a, b, out) {
 
 const wanted = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(PAGES).filter(k => fs.existsSync(path.join(DESIGN, PAGES[k].design)));
 fs.mkdirSync(OUTDIR, { recursive: true });
-const d = await serve(DESIGN), s = await serve(path.join(WEB, 'out'));
+// SITE_URL=https://turtle.muralimadhav.com compares the deployed site instead of ./out.
+const d = await serve(DESIGN), s = process.env.SITE_URL ? { base: process.env.SITE_URL.replace(/\/$/, ''), server: { close() {} } } : await serve(path.join(WEB, 'out'));
 const browser = await chromium.launch({ executablePath: CHROME, headless: true });
 let worst = 0;
 try {
