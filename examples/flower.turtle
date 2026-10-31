@@ -1,0 +1,10 @@
+# 12 squares turned around one corner
+SET petals = 12;
+PEN PURPLE;
+REPEAT petals {
+  REPEAT 4 {
+    MOVE 90;
+    TURN 90;
+  }
+  TURN 30;
+}

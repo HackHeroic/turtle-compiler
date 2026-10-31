@@ -1,0 +1,367 @@
+/* Phase 3 (#semantic, yellow hue) and phase 4 (#intermediate, green hue).
+   Every class starts with tcm-. Colours come from the tokens in base.css. */
+
+/* ===================== Shared by both phases ===================== */
+:is(#semantic, #intermediate) .tcm-live { display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
+:is(#semantic, #intermediate) .tcm-live > .card { margin: 0; }
+/* Show code exactly as the compiler prints it: JetBrains Mono would otherwise draw <= as one ≤ glyph. */
+:is(#semantic, #intermediate) :is(code, .tcm-tac-row, .tcm-quad, .tcm-cap) { font-variant-ligatures: none; }
+
+/* Stat tiles */
+:is(#semantic, #intermediate) .tcm-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+:is(#semantic, #intermediate) .tcm-stat {
+  --tcm-c: var(--hue);
+  min-width: 0; padding: 12px 16px 13px; border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--tcm-c) 42%, var(--line));
+  background:
+    radial-gradient(140% 120% at 0% 0%, color-mix(in srgb, var(--tcm-c) 20%, transparent), transparent 62%),
+    linear-gradient(180deg, var(--panel), var(--bg-2));
+}
+:is(#semantic, #intermediate) .tcm-stat b {
+  display: block; font-family: var(--font-display); font-weight: 800; font-size: 36px; line-height: 1;
+  color: var(--tcm-c); font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 22px color-mix(in srgb, var(--tcm-c) 45%, transparent);
+}
+:is(#semantic, #intermediate) .tcm-stat span {
+  display: block; margin-top: 6px; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-2);
+}
+:is(#semantic, #intermediate) .tcm-t-good { --tcm-c: var(--good); }
+:is(#semantic, #intermediate) .tcm-t-bad { --tcm-c: var(--bad); box-shadow: 0 0 26px -10px var(--bad); }
+:is(#semantic, #intermediate) .tcm-t-warn { --tcm-c: var(--warn); }
+:is(#semantic, #intermediate) .tcm-t-none { --tcm-c: var(--ink-3); }
+:is(#semantic, #intermediate) .tcm-t-none b { text-shadow: none; }
+:is(#semantic, #intermediate) .tcm-stats-sm .tcm-stat { padding: 9px 14px 10px; }
+:is(#semantic, #intermediate) .tcm-stats-sm .tcm-stat b { font-size: 26px; }
+
+/* Step captions (inside the shared .step-caption box) */
+:is(#semantic, #intermediate) .tcm-cap { display: grid; gap: 6px; }
+:is(#semantic, #intermediate) .tcm-cap-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+:is(#semantic, #intermediate) .tcm-cap-top strong { font-family: var(--font-display); font-size: 15.5px; font-weight: 700; }
+:is(#semantic, #intermediate) .tcm-cap-text { color: var(--ink); }
+:is(#semantic, #intermediate) .tcm-cap-src { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+:is(#semantic, #intermediate) .tcm-cap code {
+  padding: 1px 8px; border-radius: 6px; white-space: pre-wrap;
+  background: color-mix(in srgb, var(--hue) 8%, var(--bg)); border: 1px solid var(--line-2);
+}
+:is(#semantic, #intermediate) .tcm-cap-text code { padding: 0 5px; }
+:is(#semantic, #intermediate) .tcm-ln { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+
+/* Bullet notes */
+:is(#semantic, #intermediate) .tcm-notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+:is(#semantic, #intermediate) .tcm-notes li { position: relative; padding-left: 22px; font-size: 14.5px; color: var(--ink-2); }
+:is(#semantic, #intermediate) .tcm-notes li::before {
+  content: ""; position: absolute; left: 4px; top: .5em; width: 8px; height: 8px; border-radius: 2px;
+  background: var(--hue); transform: rotate(45deg); box-shadow: 0 0 10px var(--hue);
+}
+:is(#semantic, #intermediate) .tcm-notes strong { color: var(--ink); }
+:is(#semantic, #intermediate) .tcm-notes code { color: var(--hue); }
+
+/* ===================== Phase 3: semantic analysis ===================== */
+
+/* Rule tags: the colour says which family a rule belongs to */
+#semantic .tcm-rule {
+  display: inline-block; min-width: 2.7em; text-align: center; padding: 1px 6px; border-radius: 6px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; color: var(--bg);
+  background: var(--tcm-g); box-shadow: 0 0 12px -4px var(--tcm-g);
+}
+#semantic .tcm-g-name { --tcm-g: var(--p6); }
+#semantic .tcm-g-type { --tcm-g: var(--tok-keyword); }
+#semantic .tcm-g-limit { --tcm-g: var(--p5); }
+#semantic .tcm-g-warn { --tcm-g: var(--warn); }
+
+#semantic .tcm-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 10px; font-size: 13px; color: var(--ink-2); }
+#semantic .tcm-legend span { display: inline-flex; align-items: center; gap: 7px; }
+#semantic .tcm-legend span::before {
+  content: ""; width: 11px; height: 11px; border-radius: 3px;
+  background: var(--tcm-g); box-shadow: 0 0 8px -1px var(--tcm-g);
+}
+
+#semantic .tcm-rules td:first-child { width: 1%; padding-right: 4px; }
+#semantic .tcm-what { color: var(--ink); }
+#semantic .tcm-ex { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 10px; margin-top: 5px; font-size: 12.5px; color: var(--ink-3); }
+#semantic .tcm-ex-k { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+#semantic .tcm-ex-item { display: inline-flex; align-items: center; gap: 6px; }
+#semantic .tcm-badcode {
+  font-size: 12px; padding: 1px 7px; border-radius: 6px; white-space: nowrap;
+  color: color-mix(in srgb, var(--bad) 35%, var(--ink));
+  background: color-mix(in srgb, var(--bad) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bad) 42%, transparent);
+}
+#semantic .tcm-badcode.is-warn {
+  color: color-mix(in srgb, var(--warn) 35%, var(--ink));
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+  border-color: color-mix(in srgb, var(--warn) 42%, transparent);
+}
+
+/* Colour table */
+#semantic .tcm-colors { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 8px; }
+#semantic .tcm-color {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line);
+  transition: border-color .15s, background-color .15s;
+}
+#semantic .tcm-color:hover { border-color: var(--tcm-sw); background: color-mix(in srgb, var(--tcm-sw) 8%, var(--bg-2)); }
+#semantic .tcm-swatch {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--tcm-sw);
+  box-shadow: 0 0 14px -1px var(--tcm-sw), inset 0 0 0 2px rgba(255, 255, 255, .22);
+}
+#semantic .tcm-color-name { min-width: 0; }
+#semantic .tcm-color-name b { display: block; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .02em; }
+#semantic .tcm-color-name small { display: block; font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); }
+#semantic .tcm-code {
+  min-width: 1.9em; text-align: center; padding: 1px 6px; border-radius: 6px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  background: var(--panel-2); border: 1px solid var(--line-2); color: var(--ink);
+}
+
+/* Errors banner */
+#semantic .tcm-stop {
+  margin-bottom: 8px; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 14.5px;
+  border-left: 4px solid var(--bad);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--bad) 24%, transparent), transparent 85%);
+}
+#semantic .tcm-stop strong { color: var(--bad); margin-right: 4px; }
+
+#semantic .tcm-nothing {
+  display: grid; place-items: center; gap: 4px; padding: 26px 20px; text-align: center;
+  border: 1px dashed var(--line-2); border-radius: var(--radius);
+}
+#semantic .tcm-nothing strong { font-family: var(--font-display); font-size: 19px; }
+
+/* Check list */
+#semantic .tcm-checks {
+  position: relative; display: grid; gap: 4px; max-height: 380px; overflow-y: auto;
+  padding: 3px; margin: 0 -3px; overscroll-behavior: contain;
+}
+#semantic .tcm-check {
+  display: grid; grid-template-columns: 2.9em 3.9em minmax(0, 1fr) 22px; align-items: center; column-gap: 10px;
+  width: 100%; margin: 0; padding: 6px 10px 6px 8px; text-align: left; cursor: pointer;
+  font-size: 14px; line-height: 1.4; color: var(--ink-2);
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px;
+  border-left: 3px solid color-mix(in srgb, var(--good) 60%, transparent);
+  transition: opacity .2s, background-color .2s, box-shadow .2s;
+}
+#semantic .tcm-check:hover { background: var(--panel-2); }
+#semantic .tcm-check.lv-error { color: var(--ink); border-left-color: var(--bad); background: color-mix(in srgb, var(--bad) 13%, var(--bg-2)); }
+#semantic .tcm-check.lv-warn { color: var(--ink); border-left-color: var(--warn); background: color-mix(in srgb, var(--warn) 10%, var(--bg-2)); }
+#semantic .tcm-check.is-future { opacity: .3; }
+#semantic .tcm-check.is-current { box-shadow: 0 0 0 1.5px var(--hue), 0 0 20px -6px var(--hue); }
+#semantic .tcm-check .tcm-ctext { min-width: 0; overflow-wrap: anywhere; }
+#semantic .tcm-mark {
+  display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  font-size: 12px; font-weight: 800; color: var(--bg); background: var(--good);
+}
+#semantic .lv-error .tcm-mark { background: var(--bad); box-shadow: 0 0 12px -2px var(--bad); }
+#semantic .lv-warn .tcm-mark { background: var(--warn); }
+
+#semantic .tcm-verdict {
+  margin-left: auto; padding: 1px 10px; border-radius: 999px; border: 1px solid;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+}
+#semantic .tcm-verdict.v-ok { color: var(--good); border-color: color-mix(in srgb, var(--good) 50%, transparent); }
+#semantic .tcm-verdict.v-error { color: var(--bad); border-color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
+#semantic .tcm-verdict.v-warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 55%, transparent); }
+#semantic .tcm-cap-sem { min-height: 4.9em; }
+
+/* Symbol table */
+#semantic .tcm-sym td { vertical-align: middle; transition: background-color .25s; }
+#semantic .tcm-sym .tcm-name { color: var(--tok-ident); font-weight: 700; }
+#semantic .tcm-sym .tcm-val { color: var(--tok-number); font-weight: 700; }
+#semantic .tcm-type {
+  padding: 1px 8px; border-radius: 999px; font-family: var(--font-mono); font-size: 12px;
+  color: var(--tok-number); background: color-mix(in srgb, var(--tok-number) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tok-number) 45%, transparent);
+}
+#semantic .tcm-defline { font-family: var(--font-mono); padding: 1px 6px; border-radius: 6px; }
+#semantic .tcm-type.is-clash, #semantic .tcm-defline.is-clash { box-shadow: 0 0 0 2px var(--bad), 0 0 14px -2px var(--bad); }
+#semantic .tcm-use {
+  display: inline-block; min-width: 1.9em; margin: 1px 4px 1px 0; padding: 0 7px; text-align: center;
+  border-radius: 999px; font-family: var(--font-mono); font-size: 12px;
+  background: var(--panel-2); border: 1px solid var(--line-2);
+}
+#semantic .tcm-use.is-new { background: color-mix(in srgb, var(--hue) 26%, transparent); border-color: var(--hue); animation: tcm-pop .45s ease-out; }
+#semantic .tcm-none-yet { font-size: 13px; color: var(--ink-3); font-style: italic; }
+#semantic .tcm-none-yet.warn-text { color: var(--warn); font-style: normal; font-weight: 600; }
+#semantic .tcm-uses.is-warn .tcm-none-yet { padding: 1px 8px; border-radius: 999px; box-shadow: 0 0 0 1.5px var(--warn); }
+#semantic .tcm-sym tr.is-new td { animation: tcm-flash 1.1s ease-out forwards; }
+#semantic .tcm-sym tr.is-use td { background: color-mix(in srgb, var(--hue) 11%, transparent); }
+#semantic .tcm-sym tr.is-bad td { background: color-mix(in srgb, var(--bad) 13%, transparent); }
+#semantic .tcm-sym tr.is-warn td { background: color-mix(in srgb, var(--warn) 11%, transparent); }
+#semantic .tcm-sym tr.tcm-miss td {
+  color: var(--bad); background: color-mix(in srgb, var(--bad) 9%, transparent);
+  border-top: 1px dashed color-mix(in srgb, var(--bad) 55%, transparent);
+}
+#semantic .tcm-sym tr.tcm-miss .tcm-name { color: var(--bad); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+#semantic .tcm-sym tr.tcm-empty td { padding: 14px; text-align: center; font-style: italic; color: var(--ink-3); }
+
+@keyframes tcm-flash {
+  from { background: color-mix(in srgb, var(--good) 34%, transparent); }
+  to { background: color-mix(in srgb, var(--good) 8%, transparent); }
+}
+@keyframes tcm-pop { from { transform: scale(1.35); } to { transform: scale(1); } }
+
+/* ===================== Phase 4: intermediate code ===================== */
+
+/* One tint per loop. Nested loops always get different tints (see layout() in the JS). */
+#intermediate .tcm-lp-0 { --tcm-loop: var(--p6); }
+#intermediate .tcm-lp-1 { --tcm-loop: var(--p2); }
+#intermediate .tcm-lp-2 { --tcm-loop: var(--p5); }
+#intermediate .tcm-lp-3 { --tcm-loop: var(--p1); }
+
+/* Three-address code anatomy */
+#intermediate .tcm-anat { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; margin: 4px 0 16px; }
+#intermediate .tcm-part { display: grid; justify-items: center; gap: 6px; }
+#intermediate .tcm-part code {
+  min-width: 2.2em; padding: 6px 12px; text-align: center; border-radius: 10px;
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  border: 1.5px solid var(--tcm-c); background: color-mix(in srgb, var(--tcm-c) 14%, transparent);
+  box-shadow: 0 0 18px -6px var(--tcm-c);
+}
+#intermediate .tcm-part small { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--tcm-c); }
+#intermediate .tcm-eq code { min-width: 0; padding: 6px 2px; border-color: transparent; background: none; box-shadow: none; color: var(--ink-3); }
+#intermediate .tcm-c-res { --tcm-c: var(--p4); }
+#intermediate .tcm-c-a1 { --tcm-c: var(--p5); }
+#intermediate .tcm-c-op { --tcm-c: var(--tok-keyword); }
+#intermediate .tcm-c-a2 { --tcm-c: var(--p3); }
+#intermediate .tcm-quadline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; }
+#intermediate .tcm-quadline code { padding: 3px 10px; border-radius: 8px; font-size: 15px; font-weight: 700; background: var(--bg-2); border: 1px solid var(--line-2); }
+#intermediate .tcm-quadline [class^="tcm-c-"] { color: var(--tcm-c); }
+#intermediate .tcm-small { font-size: 13.5px; margin-top: 8px; }
+
+/* Translation scheme */
+#intermediate .tcm-scheme td { vertical-align: middle; }
+#intermediate .tcm-scheme code { white-space: nowrap; }
+#intermediate .tcm-scheme .tcm-out { color: var(--hue); font-weight: 700; }
+#intermediate .tcm-h4 { margin: 18px 0 8px; font-size: 14.5px; font-weight: 700; color: var(--ink); }
+#intermediate .tcm-h4 code { color: var(--hue); }
+
+/* Toolbar: title and view toggle */
+#intermediate .tcm-cardhead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 14px; margin-bottom: 14px; }
+#intermediate .tcm-cardhead .card-title { margin: 0; }
+#intermediate .tcm-seg { display: inline-flex; gap: 3px; padding: 3px; border-radius: 999px; background: var(--bg-2); border: 1px solid var(--line); }
+#intermediate .tcm-seg .btn { padding: 5px 12px; font-size: 13px; background: transparent; border-color: transparent; }
+#intermediate .tcm-seg .btn:hover { border-color: var(--line-2); }
+#intermediate .tcm-seg .btn[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--hue) 22%, var(--panel-2)); border-color: var(--hue);
+  box-shadow: 0 0 16px -6px var(--hue);
+}
+
+/* Listing: jump arrows in the gutter, labels, code, source line */
+#intermediate .tcm-tac {
+  position: relative; max-height: 470px; overflow: auto; overscroll-behavior: contain;
+  padding: 6px 0; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line);
+}
+#intermediate .tcm-tac-body { position: relative; min-width: max-content; }
+#intermediate .tcm-arcs { position: absolute; left: 0; top: 0; z-index: 1; overflow: visible; pointer-events: none; }
+#intermediate .tcm-tac-rows { margin-left: var(--tcm-gutter, 0px); padding: 0 8px 0 4px; }
+#intermediate .tcm-tac-row {
+  display: grid; grid-template-columns: 3.6em minmax(13em, 1fr) auto; align-items: center; column-gap: 12px;
+  width: 100%; height: 26px; margin: 0; padding: 0 10px 0 8px;
+  border: 0; border-radius: 6px; background: transparent; color: var(--ink);
+  font-family: var(--font-mono); font-size: 13.5px; line-height: 26px; text-align: left; white-space: nowrap;
+  transition: background-color .2s, box-shadow .2s;
+}
+#intermediate button.tcm-tac-row { cursor: pointer; }
+#intermediate button.tcm-tac-row:hover:not(.is-current) { box-shadow: inset 0 0 0 1px var(--line-2); }
+#intermediate .tcm-tac-row > span { transition: opacity .2s; }
+#intermediate .tcm-tac-lbl { font-weight: 700; }
+#intermediate .tcm-tac-ln { text-align: right; font-size: 12px; color: var(--ink-3); }
+#intermediate .tcm-tac-row.tcm-scaf { background-color: color-mix(in srgb, var(--tcm-loop) 13%, transparent); }
+#intermediate .tcm-tac-row.tcm-scaf.is-future { background-color: color-mix(in srgb, var(--tcm-loop) 4%, transparent); }
+#intermediate .tcm-tac-row.is-future > .tcm-tac-ins,
+#intermediate .tcm-tac-row.is-future > .tcm-tac-ln { opacity: .22; }
+#intermediate .tcm-tac-row.is-lbl-future > .tcm-tac-lbl { opacity: .22; }
+#intermediate .tcm-tac-row.is-current {
+  background-image: linear-gradient(90deg, color-mix(in srgb, var(--hue) 26%, transparent), color-mix(in srgb, var(--hue) 5%, transparent));
+  box-shadow: inset 0 0 0 1.5px var(--hue);
+}
+#intermediate .tcm-tac-row.is-cur-lbl > .tcm-tac-lbl .tcm-k-lab {
+  padding: 1px 5px; border-radius: 5px; color: var(--bg); background: var(--tcm-loop);
+  box-shadow: 0 0 14px -2px var(--tcm-loop);
+}
+#intermediate .tcm-tpl { max-height: none; margin-bottom: 4px; }
+#intermediate .tcm-tpl .tcm-tac-ln { font-family: var(--font-body); font-size: 12.5px; font-style: italic; }
+#intermediate .tcm-body-box {
+  display: inline-block; padding: 0 12px; line-height: 18px; border-radius: 6px;
+  border: 1px dashed var(--line-2); color: var(--ink-3); font-style: italic;
+}
+
+/* Jump arrows */
+#intermediate .tcm-arc { transition: opacity .25s; }
+#intermediate .tcm-arc-line { fill: none; stroke: var(--tcm-loop); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+#intermediate .tcm-arc-exit .tcm-arc-line { stroke-dasharray: 3 3.5; }
+#intermediate .tcm-arc-head { fill: var(--tcm-loop); }
+#intermediate .tcm-arc.is-future { opacity: 0; }
+#intermediate .tcm-arc.is-on { filter: drop-shadow(0 0 4px var(--tcm-loop)); }
+#intermediate .tcm-arc.is-on .tcm-arc-line { stroke-width: 2.6; opacity: 1; }
+#intermediate .tcm-arrows { margin-top: 8px; font-size: 12.5px; }
+
+/* Code colours: the same token colours as the editor */
+#intermediate .tcm-k-op { color: var(--ink); font-weight: 600; }
+#intermediate .tcm-k-sym { color: var(--ink-3); }
+#intermediate .tcm-k-num { color: var(--tok-number); }
+#intermediate .tcm-k-name { color: var(--tok-ident); }
+#intermediate .tcm-k-tmp,
+#intermediate .tcm-k-lab { color: var(--tcm-loop, var(--ink)); font-weight: 700; }
+#intermediate .tcm-k-col { color: var(--tcm-sw); font-weight: 700; text-shadow: 0 0 12px color-mix(in srgb, var(--tcm-sw) 55%, transparent); }
+
+/* Quadruple table */
+#intermediate .tcm-quadbox {
+  max-height: 470px; overflow: auto; overscroll-behavior: contain;
+  border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line);
+}
+#intermediate .tcm-quad { font-family: var(--font-mono); font-size: 13px; }
+#intermediate .tcm-quad th {
+  position: sticky; top: 0; z-index: 1; border-bottom: 0;
+  background: var(--bg-2); box-shadow: inset 0 -1px 0 var(--line-2); font-family: var(--font-body);
+}
+#intermediate .tcm-quad td { padding: 4px 12px; white-space: nowrap; transition: opacity .2s, background-color .2s; }
+#intermediate .tcm-quad td:empty::after { content: "·"; color: var(--ink-3); }
+#intermediate .tcm-q-id { width: 1%; text-align: right; color: var(--ink-3); }
+#intermediate .tcm-q-row { cursor: pointer; }
+#intermediate .tcm-q-row.tcm-scaf td { background: color-mix(in srgb, var(--tcm-loop) 12%, transparent); }
+#intermediate .tcm-q-row.tcm-scaf td:first-child { box-shadow: inset 3px 0 0 var(--tcm-loop); }
+#intermediate .tcm-q-row.is-future td { opacity: .25; }
+#intermediate .tcm-q-row.is-current td { background: color-mix(in srgb, var(--hue) 18%, transparent); box-shadow: inset 0 1.5px 0 var(--hue), inset 0 -1.5px 0 var(--hue); }
+#intermediate .tcm-q-row.is-current td:first-child { box-shadow: inset 3px 0 0 var(--hue), inset 0 1.5px 0 var(--hue), inset 0 -1.5px 0 var(--hue); }
+#intermediate .tcm-q-row.is-current td:last-child { box-shadow: inset -1.5px 0 0 var(--hue), inset 0 1.5px 0 var(--hue), inset 0 -1.5px 0 var(--hue); }
+
+/* Caption pieces */
+#intermediate .tcm-cap-ir { min-height: 3.6em; }
+#intermediate .tcm-arrow { color: var(--hue); font-weight: 700; }
+#intermediate .tcm-cap .tcm-tacc { font-weight: 600; }
+#intermediate .tcm-role {
+  margin-left: auto; padding: 1px 9px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; color: var(--ink);
+  background: color-mix(in srgb, var(--tcm-loop) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tcm-loop) 60%, transparent);
+}
+
+/* Loop legend */
+#intermediate .tcm-loops { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+#intermediate .tcm-loop {
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; padding: 5px 13px;
+  border-radius: 999px; font-size: 13px; color: var(--ink-2);
+  background: color-mix(in srgb, var(--tcm-loop) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tcm-loop) 50%, transparent);
+}
+#intermediate .tcm-loop b { font-family: var(--font-display); color: var(--tcm-loop); }
+#intermediate .tcm-loop code { font-weight: 700; color: var(--tcm-loop); }
+
+/* ===================== Phone width ===================== */
+@media (max-width: 600px) {
+  :is(#semantic, #intermediate) .tcm-stats { gap: 8px; }
+  :is(#semantic, #intermediate) .tcm-stat { padding: 10px 11px; }
+  :is(#semantic, #intermediate) .tcm-stat b { font-size: 26px; }
+  :is(#semantic, #intermediate) .tcm-stat span { font-size: 10.5px; letter-spacing: .03em; }
+  #semantic .tcm-check { grid-template-columns: 2.9em minmax(0, 1fr) 22px; grid-template-areas: "tag text mark" "ln text mark"; row-gap: 2px; }
+  #semantic .tcm-check > .tcm-rule { grid-area: tag; }
+  #semantic .tcm-check > .tcm-ln { grid-area: ln; font-size: 11px; }
+  #semantic .tcm-check > .tcm-ctext { grid-area: text; }
+  #semantic .tcm-check > .tcm-mark { grid-area: mark; }
+  #semantic .tcm-colors { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  #intermediate .tcm-part code { font-size: 17px; padding: 5px 9px; }
+  #intermediate .tcm-role { margin-left: 0; }
+  #intermediate .tcm-tac-row { grid-template-columns: 3em minmax(10.5em, 1fr) auto; column-gap: 8px; padding: 0 8px 0 6px; font-size: 12.5px; }
+}

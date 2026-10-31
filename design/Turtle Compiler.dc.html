@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<script src="js/compiler.js"></script>
+<script src="js/tc-view.js"></script>
+<style>
+:root{--bg:oklch(0.975 0.007 85);--surface:oklch(0.995 0.003 85);--surface2:oklch(0.955 0.01 85);--ink:oklch(0.23 0.02 265);--ink2:oklch(0.40 0.02 265);--ink3:oklch(0.50 0.015 265);--line:oklch(0.89 0.01 85);--line2:oklch(0.82 0.012 85);--grid:oklch(0.23 0.02 265 / 0.045);--grid-major:oklch(0.23 0.02 265 / 0.08);--accent:oklch(0.42 0.10 250);--accent-ink:#fff;--good:oklch(0.47 0.11 155);--goodbg:oklch(0.94 0.045 155);--bad:oklch(0.50 0.17 28);--badbg:oklch(0.94 0.04 28);--warn:oklch(0.55 0.13 70);--warnbg:oklch(0.94 0.06 85);--p1:oklch(0.60 0.19 355);--p2:oklch(0.65 0.16 50);--p3:oklch(0.76 0.14 92);--p4:oklch(0.62 0.15 138);--p5:oklch(0.64 0.12 222);--p6:oklch(0.57 0.17 295);--p1-ink:oklch(0.48 0.18 355);--p2-ink:oklch(0.50 0.14 45);--p3-ink:oklch(0.47 0.10 85);--p4-ink:oklch(0.45 0.12 138);--p5-ink:oklch(0.46 0.10 225);--p6-ink:oklch(0.46 0.16 295);--p1-soft:oklch(0.95 0.03 355);--p2-soft:oklch(0.95 0.035 55);--p3-soft:oklch(0.96 0.05 95);--p4-soft:oklch(0.95 0.04 138);--p5-soft:oklch(0.95 0.03 222);--p6-soft:oklch(0.95 0.03 295);--tk-kw:oklch(0.50 0.19 355);--tk-name:oklch(0.48 0.14 258);--tk-num:oklch(0.50 0.11 70);--tk-sym:oklch(0.50 0.12 300);--tk-com:oklch(0.56 0.015 265);--loop1:oklch(0.94 0.035 258);--loop1-edge:oklch(0.55 0.14 258);--loop2:oklch(0.94 0.04 300);--loop2-edge:oklch(0.52 0.15 300);--loop3:oklch(0.94 0.035 200);--loop3-edge:oklch(0.52 0.10 200);--shadow-1:0 1px 2px oklch(0.23 0.02 265 / 0.05);--shadow-2:0 14px 34px -16px oklch(0.23 0.02 265 / 0.25)}
+html,body{margin:0;padding:0;background:var(--bg)}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box;font-variant-ligatures:no-contextual}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button,input,textarea,select{font-family:inherit}
+textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+<div id="top" style="container-type: inline-size; min-height: 100vh; background-color: var(--bg); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 28px 28px; color: var(--ink); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.5;">
+
+  <nav aria-label="Main" style="position: sticky; top: 0; z-index: 10; background: color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);">
+    <div style="max-width: 1340px; margin: 0 auto; padding: 10px clamp(16px, 4cqi, 48px) 0; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="#top" aria-label="Turtle Compiler, back to top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); padding: 4px 6px 4px 0;">
+          <svg aria-hidden="true" width="44" height="44" viewBox="0 0 40 40" style="flex: 0 0 auto; display: block; border-radius: 12px; box-shadow: 0 1px 0 oklch(1 0 0 / .08) inset, 0 6px 16px -8px oklch(0.23 0.02 265 / .6);"><rect width="40" height="40" rx="11" fill="oklch(0.23 0.02 265)"></rect><rect x="0.5" y="0.5" width="39" height="39" rx="10.5" fill="none" stroke="oklch(1 0 0 / .08)"></rect><g fill="none" stroke-width="2.8" stroke-linecap="round"><line x1="20" y1="9.5" x2="29.53" y2="15" stroke="oklch(0.70 0.19 355)"></line><line x1="29.53" y1="15" x2="29.53" y2="26" stroke="oklch(0.76 0.16 50)"></line><line x1="29.53" y1="26" x2="20" y2="31.5" stroke="oklch(0.86 0.15 92)"></line><line x1="20" y1="31.5" x2="10.47" y2="26" stroke="oklch(0.76 0.16 138)"></line><line x1="10.47" y1="26" x2="10.47" y2="15" stroke="oklch(0.76 0.12 222)"></line><line x1="10.47" y1="15" x2="20" y2="9.5" stroke="oklch(0.70 0.17 295)"></line></g><polygon points="24.2,7.1 20.3,12.9 17.1,7.4" fill="oklch(0.995 0.003 85)"></polygon></svg>
+          <span style="display: flex; flex-direction: column;"><span style="font-family: 'Newsreader', serif; font-size: 24px; font-weight: 600; line-height: 1;">Turtle Compiler</span><span style="font-size: 12px; color: var(--ink3); margin-top: 3px;">Six phases, live in your browser</span></span>
+        </a>
+        <div style="margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
+          <a href="Language Reference.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Reference</a>
+          <a href="Team.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Team</a>
+          <a href="Present.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: none; background: var(--ink); color: var(--surface); font-size: 14px; font-weight: 600; text-decoration: none;">Present</a>
+        </div>
+      </div>
+      <div role="list" aria-label="Phases" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin;">
+        <a role="listitem" href="#workbench" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">Workbench</a>
+        <sc-for list="{{ phases }}" as="p" hint-placeholder-count="6">
+          <a role="listitem" href="#{{ p.id }}" aria-label="Phase {{ p.n }}, {{ p.name }}: {{ p.sum }}" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid {{ p.hue }}; background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+            <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: {{ p.hueInk }};">0{{ p.n }}</span>{{ p.short }}<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{ p.dot }}; box-shadow: {{ p.dotRing }};"></span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </nav>
+
+  <header style="max-width: 1340px; margin: 0 auto; padding: clamp(32px, 6cqi, 72px) clamp(16px, 4cqi, 48px) clamp(20px, 3cqi, 32px); display: flex; flex-direction: column; gap: 16px;">
+    <span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">A compiler you can watch</span>
+    <h1 style="margin: 0; max-width: 16ch; font-family: 'Newsreader', serif; font-weight: 500; font-size: clamp(42px, 6.4cqi, 84px); line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance;">Watch your program pass through <span style="position: relative; white-space: nowrap;">six phases<span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: -0.06em; height: 0.11em; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.06em;"><span style="border-radius: 2px; background: var(--p1);"></span><span style="border-radius: 2px; background: var(--p2);"></span><span style="border-radius: 2px; background: var(--p3);"></span><span style="border-radius: 2px; background: var(--p4);"></span><span style="border-radius: 2px; background: var(--p5);"></span><span style="border-radius: 2px; background: var(--p6);"></span></span></span>.</h1>
+    <p style="margin: 0; max-width: 62ch; font-size: clamp(17px, 1.6cqi, 20px); color: var(--ink2); text-wrap: pretty;">Type a turtle program. Each keystroke runs the whole compiler, from the first token to machine code, and then the machine draws your picture. Every phase below shows its rules and what it made from your program.</p>
+  </header>
+
+  <section id="workbench" data-screen-label="Workbench" style="scroll-margin-top: 130px; max-width: 1340px; margin: 0 auto; padding: 0 clamp(16px, 4cqi, 48px); display: flex; flex-direction: column; gap: 16px;">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px;">
+      <div role="group" aria-label="Drawings" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); margin-right: 4px;">Drawings</span>
+        <sc-for list="{{ demos }}" as="s" hint-placeholder-count="4"><button type="button" onClick="{{ s.pick }}" aria-pressed="{{ s.pressed }}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{ s.border }}; background: {{ s.bg }}; color: {{ s.fg }}; font-size: 15px; font-weight: 600; cursor: pointer; transition: background .14s ease-out;" style-hover="border-color: var(--ink2)">{{ s.label }}</button></sc-for>
+      </div>
+      <div role="group" aria-label="Error demos" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); margin-right: 4px;">Error demos</span>
+        <sc-for list="{{ errs }}" as="s" hint-placeholder-count="3"><button type="button" onClick="{{ s.pick }}" aria-pressed="{{ s.pressed }}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 12px; border-radius: 999px; border: 1px solid {{ s.border }}; background: {{ s.bg }}; color: {{ s.fg }}; font-size: 15px; font-weight: 600; cursor: pointer; transition: background .14s ease-out;" style-hover="border-color: var(--bad)"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--bad);"></span>{{ s.label }}</button></sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 20px; align-items: stretch;">
+      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; min-width: 0; overflow: hidden;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line);">
+          <label for="tc-src" style="font-family: 'Newsreader', serif; font-size: 22px; font-weight: 500;">Your program</label>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink3);"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: {{ liveDot }};"></span>{{ liveText }}</span>
+          <span style="margin-left: auto; font: 500 13px/1 'JetBrains Mono', monospace; color: var(--ink3);">{{ lineCount }}</span>
+        </div>
+        <div style="flex: 1; max-height: 480px; min-height: 260px; overflow: auto; background: var(--surface);">
+          <div style="display: grid; grid-template-columns: 52px minmax(0, 1fr); min-height: 100%; font: 500 16px/26px 'JetBrains Mono', monospace;">
+            <div aria-hidden="true" style="padding: 14px 10px 14px 0; text-align: right; color: var(--ink3); background: var(--surface2); border-right: 1px solid var(--line); user-select: none;">
+              <sc-for list="{{ gutter }}" as="g" hint-placeholder-count="10"><div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; color: {{ g.color }}; font-weight: {{ g.weight }};"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ g.dot }};"></span>{{ g.n }}</div></sc-for>
+            </div>
+            <div style="position: relative; width: max-content; min-width: 100%;">
+              <pre aria-hidden="true" style="margin: 0; padding: 14px 18px; font: inherit; white-space: pre; color: var(--ink); pointer-events: none;"><sc-for list="{{ pieces }}" as="p" hint-placeholder-count="0"><span style="color: {{ p.color }}; background: {{ p.bg }}; text-decoration: {{ p.deco }}; text-underline-offset: 5px; text-decoration-skip-ink: none; font-style: {{ p.fstyle }}; border-radius: 3px;">{{ p.text }}</span></sc-for>{{ tail }}</pre>
+              <textarea id="tc-src" ref="{{ taRef }}" value="{{ src }}" onChange="{{ onInput }}" onKeyDown="{{ onKeyDown }}" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" aria-describedby="tc-status" placeholder="PEN BLUE; REPEAT 4 { MOVE 100; TURN 90; }" style="position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 14px 18px; border: none; outline: none; resize: none; overflow: hidden; background: transparent; color: transparent; caret-color: var(--ink); font: inherit; white-space: pre; tab-size: 2;" style-focus="box-shadow: inset 0 0 0 2px var(--accent)"></textarea>
+            </div>
+          </div>
+        </div>
+        <div id="tc-status" aria-live="polite" style="padding: 14px 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px;">
+          <sc-if value="{{ ok }}" hint-placeholder-val="{{ true }}">
+            <div style="display: grid; grid-template-columns: 26px minmax(0,1fr); gap: 2px 12px; padding: 12px 14px; border-radius: 12px; background: var(--goodbg);">
+              <span aria-hidden="true" style="display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--good); color: var(--surface); font-size: 13px; font-weight: 700;">✓</span>
+              <strong style="font-weight: 600;">Compiled through all six phases.</strong>
+              <span></span><span style="color: var(--ink2); font-size: 15px; text-wrap: pretty;">{{ okText }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ stopped }}" hint-placeholder-val="{{ false }}">
+            <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid {{ stop.hue }}; background: var(--surface); font-size: 13px; font-weight: 600;"><span style="display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; border-radius: 999px; background: {{ stop.hueInk }}; color: var(--surface); font: 600 13px/1 'Newsreader', serif;">0{{ stop.n }}</span>Stopped in phase {{ stop.n }} · {{ stop.name }}</span>
+            <div role="alert" style="display: grid; grid-template-columns: 26px minmax(0,1fr); gap: 2px 12px; padding: 12px 14px; border-radius: 12px; background: var(--badbg); border: 1px solid var(--bad);">
+              <span aria-hidden="true" style="display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bad); color: var(--surface); font-size: 13px; font-weight: 700;">✕</span>
+              <strong style="font-weight: 600; text-wrap: pretty;">{{ stop.msg }}</strong>
+              <span></span><span style="color: var(--ink2); font-size: 15px;">{{ stop.hint }}</span>
+            </div>
+            <sc-if value="{{ stop.hasMore }}"><span style="font-size: 14px; color: var(--ink3);">{{ stop.more }}</span></sc-if>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; min-width: 0; overflow: hidden;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line);">
+          <span style="font-family: 'Newsreader', serif; font-size: 22px; font-weight: 500;">Drawing</span>
+          <span style="margin-left: auto; font-size: 14px; color: {{ metaColor }};">{{ meta }}</span>
+        </div>
+        <div style="position: relative; flex: 1; min-height: 320px; aspect-ratio: 5 / 4; background: #fdfcf8;">
+          <canvas ref="{{ canvasRef }}" role="img" aria-label="{{ meta }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; filter: {{ canvasFilter }}; opacity: {{ canvasOp }}; transition: filter .24s ease-out, opacity .24s ease-out;"></canvas>
+          <sc-if value="{{ stopped }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; font-weight: 600; color: var(--ink2);">Showing the last program that compiled</span></sc-if>
+        </div>
+        <a href="#codegen" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--line); font-size: 15px; font-weight: 600; color: var(--p6-ink); text-decoration: none;">Watch the machine draw it, one instruction at a time<span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <ol aria-label="The six phases" style="list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 10px;">
+      <sc-for list="{{ phases }}" as="p" hint-placeholder-count="6">
+        <li style="display: flex;">
+          <a href="#{{ p.id }}" style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 14px; background: {{ p.cardBg }}; border: 1px {{ p.bstyle }} var(--line2); border-top: 3px solid {{ p.top }}; color: var(--ink); text-decoration: none; transition: transform .14s ease-out, box-shadow .14s ease-out;" style-hover="transform: translateY(-2px); box-shadow: var(--shadow-2)">
+            <span style="display: flex; align-items: baseline; gap: 10px;"><span style="font-family: 'Newsreader', serif; font-size: 30px; font-weight: 500; line-height: .9; color: {{ p.numColor }};">0{{ p.n }}</span><span style="font-weight: 600; font-size: 16px;">{{ p.short }}</span></span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink2);"><span aria-hidden="true" style="flex: 0 0 auto; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: {{ p.dot }}; color: var(--surface); font-size: 11px; font-weight: 700;">{{ p.glyph }}</span><span>{{ p.sum }}</span></span>
+          </a>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+
+  <main style="max-width: 1340px; margin: 0 auto; padding: clamp(40px, 6cqi, 72px) clamp(16px, 4cqi, 48px) 0; display: flex; flex-direction: column;">
+    <sc-for list="{{ phases }}" as="p" hint-placeholder-count="0">
+      <div style="display: flex; flex-direction: column;">
+        <dc-import name="Phase" n="{{ p.n }}" r="{{ p.r }}" hint-size="100%,1200px"></dc-import>
+        <sc-if value="{{ p.hasHandoff }}">
+          <div style="display: flex; align-items: stretch; gap: 16px; padding: 28px 0 28px clamp(28px, 5cqi, 72px);">
+            <span aria-hidden="true" style="flex: 0 0 4px; min-height: 64px; border-radius: 2px; background: linear-gradient({{ p.hue }}, {{ p.nextHue }});"></span>
+            <span style="align-self: center; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 16px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 15px; color: var(--ink2);"><span aria-hidden="true" style="color: {{ p.hueInk }}; font-weight: 700;">↓</span><span>{{ p.handoff }}</span></span>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </main>
+
+  <footer style="max-width: 1340px; margin: 72px auto 0; padding: 28px clamp(16px, 4cqi, 48px) 48px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; font-size: 15px; color: var(--ink2);">
+    <span style="font-family: 'Newsreader', serif; font-size: 20px; color: var(--ink);">Turtle Compiler</span>
+    <span>All six phases run in your browser. Nothing is sent anywhere.</span>
+    <span style="margin-left: auto; display: flex; gap: 16px;"><a href="Language Reference.dc.html">Language reference</a><a href="Team.dc.html">Team</a><a href="#top">Back to top</a></span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;example&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;star&quot;, &quot;square&quot;, &quot;flower&quot;, &quot;play&quot;, &quot;lexerr&quot;, &quot;synerr&quot;, &quot;semerr&quot;, &quot;empty&quot;], &quot;default&quot;: &quot;star&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Program&quot;}, &quot;handoffs&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { src: '', sample: null, r: null, good: null, crash: null };
+  canvasRef = React.createRef();
+  taRef = React.createRef();
+
+  componentDidMount() {
+    const ok = () => window.TC && window.TCV;
+    const go = () => { this.load(this.props.example ?? 'star'); };
+    if (ok()) go(); else this.wait = setInterval(() => { if (ok()) { clearInterval(this.wait); go(); } }, 40);
+  }
+  componentWillUnmount() { clearInterval(this.wait); clearTimeout(this.t); if (this.ro) this.ro.disconnect(); }
+  componentDidUpdate(prev) {
+    if (prev.example !== this.props.example && window.TC) this.load(this.props.example ?? 'star');
+    const c = this.canvasRef.current;
+    if (c && c !== this.roEl) { if (this.ro) this.ro.disconnect(); this.ro = new ResizeObserver(() => this.paint()); this.ro.observe(c); this.roEl = c; }
+    this.paint();
+  }
+  load(id) {
+    const s = TCV.SAMPLES.find(x => x.id === id) || TCV.SAMPLES[0];
+    this.setState({ src: s.src, sample: s.id }, () => this.compile());
+  }
+  compile() {
+    clearTimeout(this.t);
+    let r;
+    try { r = TC.compile(this.state.src); } catch (e) { this.setState({ crash: e.message }); return; }
+    const good = r.stopAt ? (this.state.good || TC.compile(TCV.SAMPLES[0].src)) : r;
+    this.setState({ r, good, crash: null });
+  }
+  paint() {
+    const c = this.canvasRef.current, g = this.state.good;
+    if (!c || !g || !window.TCV) return;
+    if (this.turtleFor !== g) { this.turtleFor = g; this.turtle = TCV.finalTurtle(g.gen.prog); }
+    const t = this.turtle;
+    TCV.draw(c, g.run.segments, { turtle: { x: t.x, y: t.y, h: t.h } });
+  }
+
+  renderVals() {
+    const ready = !!(window.TC && window.TCV) && !!this.state.r;
+    const base = { phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', lineCount: '' };
+    if (!ready) return base;
+    const { r, good, src, sample } = this.state;
+    const P = TCV.PHASES;
+
+    const btn = s => {
+      const on = s.id === sample;
+      return { label: s.label, pick: () => this.load(s.id), pressed: on ? 'true' : 'false', bg: on ? 'var(--ink)' : 'var(--surface)', fg: on ? 'var(--surface)' : 'var(--ink)', border: on ? 'var(--ink)' : 'var(--line2)' };
+    };
+    const demos = TCV.SAMPLES.filter(s => s.kind === 'demo').map(btn), errs = TCV.SAMPLES.filter(s => s.kind === 'error').map(btn);
+
+    const errors = TCV.errorsOf(r);
+    const TYPE = { KEYWORD: 'var(--tk-kw)', IDENT: 'var(--tk-name)', NUMBER: 'var(--tk-num)', LBRACE: 'var(--tk-sym)', RBRACE: 'var(--tk-sym)', SEMI: 'var(--tk-sym)', ASSIGN: 'var(--tk-sym)', COMMENT: 'var(--tk-com)', WS: 'var(--ink)', ERROR: 'var(--bad)' };
+    const pieces = TC.lex(src).pieces.map(p => {
+      const bad = p.type !== 'WS' && errors.some(e => p.start < e.end && p.end > e.start);
+      return { text: p.text, color: TYPE[p.type] || 'var(--ink)', bg: p.type === 'ERROR' ? 'var(--badbg)' : 'transparent', deco: bad ? 'underline wavy var(--bad) 2px' : 'none', fstyle: p.type === 'COMMENT' ? 'italic' : 'normal' };
+    });
+    const nLines = src.split('\n').length, errLines = new Set(errors.map(e => e.line));
+    const gutter = Array.from({ length: nLines }, (_, k) => { const bad = errLines.has(k + 1); return { n: k + 1, color: bad ? 'var(--bad)' : 'var(--ink3)', weight: bad ? 700 : 500, dot: bad ? 'var(--bad)' : 'transparent' }; });
+
+    const failed = P.find(p => p.key === r.stopAt);
+    const handoff = (p, st) => {
+      const next = P[p.n];
+      if (!next) return '';
+      if (st === 'error' || st === 'skipped') return `Nothing goes on to phase ${next.n}: phase ${failed.n} stopped with an error.`;
+      const g = {
+        lex: () => `${TCV.plural(r.lex.tokens.length - 1, 'token')} (plus $ at the end)`,
+        parse: () => `a parse tree of ${r.parse.nodes.length} nodes`,
+        sem: () => `a checked tree and ${TCV.plural(r.sem.symbols.length, 'symbol')}`,
+        ir: () => `${TCV.plural(r.ir.length, 'line')} of three-address code`,
+        opt: () => `${TCV.plural(r.opt.code.length, 'line')} of optimized code`
+      }[p.key]();
+      return `Gives ${g} to phase ${next.n}, ${next.name}`;
+    };
+    const phases = P.map(p => {
+      const st = TCV.stateOf(r, p.key), S = TCV.STATUS[st], sum = TCV.summary(r, p.key, st);
+      const next = P[p.n];
+      return {
+        n: p.n, id: p.id, name: p.name, short: p.short, r,
+        hue: `var(--p${p.n})`, hueInk: `var(--p${p.n}-ink)`, nextHue: next ? `var(--p${next.n})` : 'transparent',
+        sum: st === 'skipped' ? 'Skipped' : sum, glyph: S.glyph, dot: S.dot, dotRing: st === 'skipped' ? 'inset 0 0 0 1.5px var(--ink3)' : 'none',
+        cardBg: st === 'skipped' ? 'transparent' : 'var(--surface)', bstyle: st === 'skipped' ? 'dashed' : 'solid', top: st === 'skipped' ? 'var(--line2)' : `var(--p${p.n})`, numColor: st === 'skipped' ? 'var(--ink3)' : `var(--p${p.n}-ink)`,
+        hasHandoff: !!next && (this.props.handoffs ?? true), handoff: handoff(p, st)
+      };
+    });
+
+    const stopped = !!r.stopAt;
+    let stop = {}, okText = '';
+    if (stopped) {
+      const e = errors[0];
+      stop = { n: failed.n, name: failed.name, hue: `var(--p${failed.n})`, hueInk: `var(--p${failed.n}-ink)`, msg: TCV.where(e) + e.msg, hint: e.hint || (e.rule ? `Rule ${e.rule}.` : ''), hasMore: errors.length > 1, more: `+ ${errors.length - 1} more. See phase ${failed.n} below.` };
+    } else {
+      const w = r.sem.warnings.length, segs = r.run.segments.length;
+      okText = `${TCV.plural(r.gen.prog.length, 'machine instruction')} ran in ${TCV.plural(r.run.steps, 'step')} and drew ${TCV.plural(segs, 'line')}.${w ? ` ${TCV.plural(w, 'warning')} in phase 3.` : ''}${r.run.limitHit ? ' The machine stopped at the step limit.' : ''}`;
+    }
+    const t = this.turtleFor === good ? this.turtle : TCV.finalTurtle(good.gen.prog);
+    const gs = good.run.segments.length;
+    const meta = stopped ? 'Last drawing that compiled' : `${TCV.plural(gs, 'line')} · turtle ends at (${Math.round(t.x)}, ${Math.round(-t.y)}) facing ${t.h}°`;
+
+    return {
+      ...base, phases, demos, errs, pieces, gutter, tail: '\n ',
+      ok: !stopped, stopped, stop, okText, meta, metaColor: stopped ? 'var(--ink2)' : 'var(--ink3)',
+      canvasFilter: stopped ? 'grayscale(1)' : 'none', canvasOp: stopped ? 0.45 : 1,
+      liveDot: stopped ? 'var(--bad)' : 'var(--good)', liveText: 'Recompiles as you type',
+      lineCount: `${TCV.plural(nLines, 'line')}`,
+      onInput: e => { const v = e.target.value; this.setState({ src: v, sample: null }); clearTimeout(this.t); this.t = setTimeout(() => this.compile(), 220); },
+      onKeyDown: e => {
+        if (e.key !== 'Tab' || e.shiftKey || e.metaKey || e.ctrlKey) return;
+        e.preventDefault();
+        const ta = e.target, s = ta.selectionStart, en = ta.selectionEnd, v = ta.value.slice(0, s) + '  ' + ta.value.slice(en);
+        this.setState({ src: v, sample: null }, () => { const el = this.taRef.current; if (el) el.selectionStart = el.selectionEnd = s + 2; });
+        clearTimeout(this.t); this.t = setTimeout(() => this.compile(), 220);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
