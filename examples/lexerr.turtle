@@ -1,0 +1,3 @@
+PEN GREEN;
+MOVE 10@0;          # @ is not in the language
+TURN - 90;          # the minus must touch the number

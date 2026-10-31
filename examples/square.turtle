@@ -1,0 +1,3 @@
+# The example from the project sheet
+PEN BLUE;
+REPEAT 4 { MOVE 100; TURN 90; }
