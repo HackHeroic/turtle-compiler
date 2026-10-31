@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<script src="js/compiler.js"></script>
+<script src="js/tc-view.js"></script>
+<style>
+:root{--bg:oklch(0.975 0.007 85);--surface:oklch(0.995 0.003 85);--surface2:oklch(0.955 0.01 85);--ink:oklch(0.23 0.02 265);--ink2:oklch(0.40 0.02 265);--ink3:oklch(0.50 0.015 265);--line:oklch(0.89 0.01 85);--line2:oklch(0.82 0.012 85);--grid:oklch(0.23 0.02 265 / 0.045);--grid-major:oklch(0.23 0.02 265 / 0.08);--accent:oklch(0.42 0.10 250);--accent-ink:#fff;--good:oklch(0.47 0.11 155);--goodbg:oklch(0.94 0.045 155);--bad:oklch(0.50 0.17 28);--badbg:oklch(0.94 0.04 28);--warn:oklch(0.55 0.13 70);--warnbg:oklch(0.94 0.06 85);--p1:oklch(0.60 0.19 355);--p2:oklch(0.65 0.16 50);--p3:oklch(0.76 0.14 92);--p4:oklch(0.62 0.15 138);--p5:oklch(0.64 0.12 222);--p6:oklch(0.57 0.17 295);--p1-ink:oklch(0.48 0.18 355);--p2-ink:oklch(0.50 0.14 45);--p3-ink:oklch(0.47 0.10 85);--p4-ink:oklch(0.45 0.12 138);--p5-ink:oklch(0.46 0.10 225);--p6-ink:oklch(0.46 0.16 295);--p1-soft:oklch(0.95 0.03 355);--p2-soft:oklch(0.95 0.035 55);--p3-soft:oklch(0.96 0.05 95);--p4-soft:oklch(0.95 0.04 138);--p5-soft:oklch(0.95 0.03 222);--p6-soft:oklch(0.95 0.03 295);--tk-kw:oklch(0.50 0.19 355);--tk-name:oklch(0.48 0.14 258);--tk-num:oklch(0.50 0.11 70);--tk-sym:oklch(0.50 0.12 300);--tk-com:oklch(0.56 0.015 265);--loop1:oklch(0.94 0.035 258);--loop1-edge:oklch(0.55 0.14 258);--loop2:oklch(0.94 0.04 300);--loop2-edge:oklch(0.52 0.15 300);--loop3:oklch(0.94 0.035 200);--loop3-edge:oklch(0.52 0.10 200);--shadow-1:0 1px 2px oklch(0.23 0.02 265 / 0.05);--shadow-2:0 14px 34px -16px oklch(0.23 0.02 265 / 0.25)}
+html,body{margin:0;padding:0;background:var(--bg)}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box;font-variant-ligatures:no-contextual}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button,input,textarea,select{font-family:inherit}
+textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{@page{size:A4 portrait;margin:9mm}html,body{background:#fff!important}[data-print=hide]{display:none!important}[data-print=root]{background-image:none!important;font-size:12px!important;zoom:.45}h1{font-size:40px!important}header[data-print=main]{padding-bottom:14px!important}[data-print=main]{padding:0!important;max-width:none!important}[data-print=grid]{display:block!important;columns:3;column-gap:10px}[data-print=grid]>div{display:block!important}[data-print=grid] section{padding:14px!important;gap:10px!important;border-radius:10px!important;margin-bottom:10px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</helmet>
+<div id="top" data-print="root" style="container-type: inline-size; min-height: 100vh; background-color: var(--bg); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 28px 28px; color: var(--ink); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.5;">
+
+  <nav aria-label="Main" data-print="hide" style="position: sticky; top: 0; z-index: 10; background: color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);">
+    <div style="max-width: 1340px; margin: 0 auto; padding: 10px clamp(16px, 4cqi, 48px) 0; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="Turtle Compiler.dc.html" aria-label="Turtle Compiler, home" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); padding: 4px 6px 4px 0;">
+          <svg aria-hidden="true" width="44" height="44" viewBox="0 0 40 40" style="flex: 0 0 auto; display: block; border-radius: 12px; box-shadow: 0 1px 0 oklch(1 0 0 / .08) inset, 0 6px 16px -8px oklch(0.23 0.02 265 / .6);"><rect width="40" height="40" rx="11" fill="oklch(0.23 0.02 265)"></rect><rect x="0.5" y="0.5" width="39" height="39" rx="10.5" fill="none" stroke="oklch(1 0 0 / .08)"></rect><g fill="none" stroke-width="2.8" stroke-linecap="round"><line x1="20" y1="9.5" x2="29.53" y2="15" stroke="oklch(0.70 0.19 355)"></line><line x1="29.53" y1="15" x2="29.53" y2="26" stroke="oklch(0.76 0.16 50)"></line><line x1="29.53" y1="26" x2="20" y2="31.5" stroke="oklch(0.86 0.15 92)"></line><line x1="20" y1="31.5" x2="10.47" y2="26" stroke="oklch(0.76 0.16 138)"></line><line x1="10.47" y1="26" x2="10.47" y2="15" stroke="oklch(0.76 0.12 222)"></line><line x1="10.47" y1="15" x2="20" y2="9.5" stroke="oklch(0.70 0.17 295)"></line></g><polygon points="24.2,7.1 20.3,12.9 17.1,7.4" fill="oklch(0.995 0.003 85)"></polygon></svg>
+          <span style="display: flex; flex-direction: column;"><span style="font-family: 'Newsreader', serif; font-size: 24px; font-weight: 600; line-height: 1;">Turtle Compiler</span><span style="font-size: 12px; color: var(--ink3); margin-top: 3px;">Six phases, live in your browser</span></span>
+        </a>
+        <div style="margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
+          <a href="Language Reference.dc.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: none; background: var(--ink); color: var(--surface); font-size: 14px; font-weight: 600; text-decoration: none;">Reference</a>
+          <a href="Team.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Team</a>
+          <a href="Present.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Present</a>
+        </div>
+      </div>
+      <div role="list" aria-label="Phases" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin;">
+        <a role="listitem" href="Turtle Compiler.dc.html#workbench" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">Workbench</a>
+        <a role="listitem" href="Turtle Compiler.dc.html#lexer" aria-label="Phase 1, Lexical analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p1); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p1-ink);">01</span>Lexer<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p1); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#parser" aria-label="Phase 2, Syntax analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p2); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p2-ink);">02</span>Parser<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p2); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#semantic" aria-label="Phase 3, Semantic analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p3); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p3-ink);">03</span>Semantic<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p3); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#intermediate" aria-label="Phase 4, Intermediate code generation" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p4); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p4-ink);">04</span>IR<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p4); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#optimizer" aria-label="Phase 5, Code optimization" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p5); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p5-ink);">05</span>Optimizer<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p5); box-shadow: none;"></span>
+        </a>
+        <a role="listitem" href="Turtle Compiler.dc.html#codegen" aria-label="Phase 6, Code generation" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p6); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p6-ink);">06</span>Code gen<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p6); box-shadow: none;"></span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header data-print="main" style="max-width: 1340px; margin: 0 auto; padding: clamp(32px, 6cqi, 72px) clamp(16px, 4cqi, 48px) clamp(20px, 3cqi, 32px); display: flex; flex-direction: column; gap: 16px;">
+    <span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">Language reference</span>
+    <h1 style="margin: 0; max-width: 18ch; font-family: 'Newsreader', serif; font-weight: 500; font-size: clamp(42px, 6.4cqi, 84px); line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance;">The whole language on one page</h1>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;">
+      <p style="margin: 0; max-width: 62ch; font-size: clamp(17px, 1.6cqi, 20px); color: var(--ink2); text-wrap: pretty;">Seven commands, nine colours and the rules each phase checks, from the first token to the machine code. Every number on this page is read from the compiler itself.</p>
+      <button type="button" onClick="{{ print }}" data-print="hide" style="margin-left: auto; height: 44px; padding: 0 18px; border-radius: 999px; border: none; background: var(--ink); color: var(--surface); font-size: 15px; font-weight: 600; cursor: pointer;" style-hover="background: var(--ink2)">Print this page</button>
+    </div>
+  </header>
+
+  <main data-print="main" style="max-width: 1340px; margin: 0 auto; padding: 0 clamp(16px, 4cqi, 48px); display: flex; flex-direction: column;">
+    <div data-print="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 20px; align-items: stretch;">
+
+      <section aria-labelledby="ref-commands" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">Statements</span><h2 id="ref-commands" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">The 7 commands</h2></div>
+        <div role="table" aria-label="Commands" style="overflow-x: auto; border: 1px solid var(--line); border-radius: 12px;">
+          <div style="min-width: 480px;">
+            <div role="row" style="display: grid; grid-template-columns: 150px minmax(0,1fr) 170px; gap: 12px; padding: 10px 14px; background: var(--surface2); border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink3);"><span role="columnheader">Syntax</span><span role="columnheader">What it does</span><span role="columnheader">Example</span></div>
+            <sc-for list="{{ commands }}" as="c" hint-placeholder-count="7">
+              <div role="row" style="display: grid; grid-template-columns: 150px minmax(0,1fr) 170px; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); align-items: baseline;">
+                <code role="cell" style="font: 600 14px/1.45 'JetBrains Mono', monospace; white-space: pre-wrap;"><sc-for list="{{ c.syntax }}" as="p" hint-placeholder-count="0"><span style="color: {{ p.color }};">{{ p.text }}</span></sc-for></code>
+                <span role="cell" style="font-size: 15px; color: var(--ink2); text-wrap: pretty;">{{ c.does }}</span>
+                <code role="cell" style="font: 500 14px/1.45 'JetBrains Mono', monospace; white-space: pre-wrap;"><sc-for list="{{ c.ex }}" as="p" hint-placeholder-count="0"><span style="color: {{ p.color }};">{{ p.text }}</span></sc-for></code>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">Wherever a command takes <code style="font: 600 14px 'JetBrains Mono', monospace;">n</code>, it takes a number or a name made with SET. Keywords and colours work in any case. A <code style="font: 600 14px 'JetBrains Mono', monospace; color: var(--tk-com);">#</code> starts a comment that runs to the end of the line. {{ startText }}</p>
+      </section>
+
+      <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0;">
+        <section aria-labelledby="ref-limits" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p3-ink);">Phase 3 checks these</span><h2 id="ref-limits" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">Value limits</h2></div>
+          <dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px;">
+            <sc-for list="{{ limits }}" as="l" hint-placeholder-count="5">
+              <div style="display: flex; flex-direction: column; gap: 4px; padding: 14px; border: 1px solid var(--line); border-radius: 12px;">
+                <dt style="font: 600 13px/1.3 'JetBrains Mono', monospace; color: var(--tk-kw);">{{ l.name }}</dt>
+                <dd style="margin: 0; font-family: 'Newsreader', serif; font-size: 30px; font-weight: 500; line-height: 1;">{{ l.range }}</dd>
+                <dd style="margin: 0; font-size: 14px; color: var(--ink2);">{{ l.note }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+        </section>
+
+        <section aria-labelledby="ref-colours" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">For PEN</span><h2 id="ref-colours" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">The {{ colourCount }} colours</h2></div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)); gap: 8px;">
+            <sc-for list="{{ colours }}" as="c" hint-placeholder-count="9">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border: 1px solid var(--line); border-radius: 12px;">
+                <span aria-hidden="true" style="flex: 0 0 auto; width: 28px; height: 28px; border-radius: 8px; background: {{ c.sw }}; box-shadow: inset 0 0 0 1px oklch(0.23 0.02 265 / 0.12);"></span>
+                <span style="display: flex; flex-direction: column; min-width: 0;"><span style="font: 600 14px/1.3 'JetBrains Mono', monospace;">{{ c.name }}</span><span style="font: 500 12px/1.3 'JetBrains Mono', monospace; color: var(--ink3);">{{ c.code }}</span></span>
+              </li>
+            </sc-for>
+          </ul>
+          <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">{{ whiteText }}</p>
+        </section>
+      </div>
+
+      <section aria-labelledby="ref-tokens" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p1-ink);">Phase 1 · Lexer</span><h2 id="ref-tokens" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">Tokens and patterns</h2></div>
+        <div role="table" aria-label="Token table" style="overflow-x: auto; border: 1px solid var(--line); border-radius: 12px;">
+          <div style="min-width: 480px;">
+            <div role="row" style="display: grid; grid-template-columns: 136px minmax(0,1fr) 110px; gap: 12px; padding: 10px 14px; background: var(--surface2); border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink3);"><span role="columnheader">Token</span><span role="columnheader">Pattern</span><span role="columnheader">Example</span></div>
+            <sc-for list="{{ tokens }}" as="t" hint-placeholder-count="7">
+              <div role="row" style="display: grid; grid-template-columns: 136px minmax(0,1fr) 110px; gap: 12px; padding: 9px 14px; border-bottom: 1px solid var(--line); font: 500 14px/1.45 'JetBrains Mono', monospace; color: {{ t.rowColor }};">
+                <span role="cell" style="color: {{ t.color }}; font-weight: 700;">{{ t.tok }}</span>
+                <span role="cell">{{ t.pat }} <span style="color: var(--ink3); font-family: 'Instrument Sans', sans-serif;">{{ t.note }}</span></span>
+                <span role="cell" style="white-space: pre;">{{ t.ex }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">Spaces and comments are read but never become tokens. A minus sign must touch its number: <code style="font: 600 14px 'JetBrains Mono', monospace;">-90</code>, not <code style="font: 600 14px 'JetBrains Mono', monospace;">- 90</code>. Any other character is a lexical error.</p>
+      </section>
+
+      <section aria-labelledby="ref-grammar" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p2-ink);">Phase 2 · Parser</span><h2 id="ref-grammar" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">The {{ ruleCount }} grammar rules</h2></div>
+        <ol aria-label="Grammar" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 0 20px; font: 500 14px/1.45 'JetBrains Mono', monospace;">
+          <sc-for list="{{ grammar }}" as="g" hint-placeholder-count="12">
+            <li style="display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line);"><span style="color: var(--ink3);">{{ g.id }}</span><span><span style="color: var(--p2-ink); font-weight: 700;">{{ g.lhs }}</span> <span aria-label="goes to" style="color: var(--ink3);">→</span> {{ g.rhs }}</span></li>
+          </sc-for>
+        </ol>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <sc-for list="{{ grammarFacts }}" as="f" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line2); font-size: 14px; font-weight: 600; color: var(--ink2);">{{ f }}</span></sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="ref-semantic" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p3-ink);">Phase 3 · Semantic</span><h2 id="ref-semantic" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">What a correct program must obey</h2></div>
+        <ul aria-label="Semantic rules" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;">
+          <sc-for list="{{ sem }}" as="s" hint-placeholder-count="10">
+            <li style="display: grid; grid-template-columns: 22px 34px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 8px 14px; border-bottom: 1px solid var(--line); background: {{ s.bg }};">
+              <span aria-hidden="true" style="display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: {{ s.dot }}; color: var(--surface); font-size: 11px; font-weight: 700; transform: translateY(3px);">{{ s.glyph }}</span>
+              <b style="font: 700 14px/1.4 'JetBrains Mono', monospace; color: {{ s.color }};">{{ s.id }}</b>
+              <span style="font-size: 15px;">{{ s.text }} <span style="color: var(--ink3);">{{ s.level }}</span></span>
+            </li>
+          </sc-for>
+        </ul>
+        <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">An error stops the compiler in phase 3. A warning lets the program run.</p>
+      </section>
+
+      <section aria-labelledby="ref-opt" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p5-ink);">Phase 5 · Optimizer</span><h2 id="ref-opt" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">Six ways to make the code shorter</h2></div>
+        <ul aria-label="Optimizer rules" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;">
+          <sc-for list="{{ opt }}" as="o" hint-placeholder-count="6">
+            <li style="display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 10px; padding: 10px 14px; border-bottom: 1px solid var(--line);">
+              <b style="font: 700 14px/1.5 'JetBrains Mono', monospace; color: var(--p5-ink);">{{ o.id }}</b>
+              <span style="font-size: 15px;"><strong style="font-weight: 600;">{{ o.name }}.</strong> <span style="color: var(--ink2);">{{ o.what }}</span></span>
+              <span></span>
+              <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font: 500 13px/1.45 'JetBrains Mono', monospace;"><span style="padding: 1px 8px; border-radius: 6px; background: var(--surface2);">{{ o.before }}</span><span aria-label="becomes" style="color: var(--p5-ink); font-weight: 700;">→</span><span style="padding: 1px 8px; border-radius: 6px; background: var(--p5-soft);">{{ o.after }}</span></span>
+            </li>
+          </sc-for>
+        </ul>
+        <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">The rules run again and again until none of them changes anything. The drawing always stays the same.</p>
+      </section>
+
+      <section aria-labelledby="ref-vm" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p6-ink);">Phase 6 · Code gen</span><h2 id="ref-vm" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">The Turtle VM instruction set</h2></div>
+        <div role="table" aria-label="Instruction set" style="overflow-x: auto; border: 1px solid var(--line); border-radius: 12px;">
+          <div style="min-width: 440px;">
+            <div role="row" style="display: grid; grid-template-columns: 64px 56px 104px minmax(0,1fr); gap: 10px; padding: 10px 14px; background: var(--surface2); border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink3);"><span role="columnheader">Op</span><span role="columnheader">Hex</span><span role="columnheader">Operand</span><span role="columnheader">What it does</span></div>
+            <sc-for list="{{ isa }}" as="s" hint-placeholder-count="11">
+              <div role="row" style="display: grid; grid-template-columns: 64px 56px 104px minmax(0,1fr); gap: 10px; padding: 7px 14px; border-bottom: 1px solid var(--line); font: 500 14px/1.4 'JetBrains Mono', monospace;"><b role="cell" style="color: var(--p6-ink);">{{ s.mn }}</b><span role="cell">{{ s.hex }}</span><span role="cell" style="color: var(--ink2);">{{ s.args }}</span><span role="cell" style="font-family: 'Instrument Sans', sans-serif; font-size: 15px;">{{ s.does }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">Every instruction is 4 bytes</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-family: 'JetBrains Mono', monospace;">
+            <sc-for list="{{ enc }}" as="b" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 10px; background: {{ b.bg }}; border: 1px solid {{ b.border }};"><b style="font-size: 20px; color: {{ b.color }};">{{ b.hex }}</b><span style="font: 500 13px/1.3 'Instrument Sans', sans-serif; color: var(--ink2);">{{ b.label }}</span></div>
+            </sc-for>
+          </div>
+          <span style="font: 500 14px/1.4 'JetBrains Mono', monospace; color: var(--ink2);">{{ encText }}</span>
+        </div>
+        <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">R1 holds the counter of the outer loop, R2 the next one in, R3 the deepest. Jump addresses are filled in on a second pass.</p>
+      </section>
+
+      <section aria-labelledby="ref-cli" style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; break-inside: avoid;">
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3);">Command line</span><h2 id="ref-cli" style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 28px; line-height: 1.15;">Using turtlec</h2></div>
+        <p style="margin: 0; font-size: 15px; color: var(--ink2); text-wrap: pretty;">The same compiler runs in a terminal. It reads a <code style="font: 600 14px 'JetBrains Mono', monospace;">.turtle</code> file and goes through all six phases.</p>
+        <ul aria-label="turtlec commands" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ cli }}" as="c" hint-placeholder-count="6">
+            <li style="display: flex; flex-direction: column; gap: 6px;">
+              <code style="display: block; padding: 10px 14px; border-radius: 10px; background: var(--surface2); border: 1px solid var(--line); font: 500 14px/1.45 'JetBrains Mono', monospace; overflow-x: auto; white-space: pre;"><span aria-hidden="true" style="color: var(--ink3);">{{ c.prompt }}</span><span style="color: var(--tk-kw); font-weight: 600;">{{ c.cmd }}</span>{{ c.args }}</code>
+              <span style="font-size: 15px; color: var(--ink2); text-wrap: pretty;">{{ c.does }}</span>
+            </li>
+          </sc-for>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer data-print="hide" style="max-width: 1340px; margin: 72px auto 0; padding: 28px clamp(16px, 4cqi, 48px) 48px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; font-size: 15px; color: var(--ink2);">
+    <span style="font-family: 'Newsreader', serif; font-size: 20px; color: var(--ink);">Turtle Compiler</span>
+    <span>All six phases run in your browser. Nothing is sent anywhere.</span>
+    <span style="margin-left: auto; display: flex; gap: 16px;"><a href="Turtle Compiler.dc.html">Compiler</a><a href="Team.dc.html">Team</a><a href="#top">Back to top</a></span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { ready: false };
+
+  componentDidMount() {
+    const ok = () => window.TC && window.TCV;
+    if (ok()) this.setState({ ready: true });
+    else this.wait = setInterval(() => { if (ok()) { clearInterval(this.wait); this.setState({ ready: true }); } }, 40);
+  }
+  componentWillUnmount() { clearInterval(this.wait); }
+
+  renderVals() {
+    const base = { commands: [], limits: [], colours: [], tokens: [], grammar: [], grammarFacts: [], sem: [], opt: [], isa: [], enc: [], cli: [], startText: '', whiteText: '', encText: '', colourCount: '', ruleCount: '', print: () => window.print() };
+    if (!this.state.ready || !window.TC || !window.TCV) return base;
+    const L = TC.LIMITS, N = TC.COLOR_NAMES;
+    const TYPE = { KEYWORD: 'var(--tk-kw)', IDENT: 'var(--tk-name)', NUMBER: 'var(--tk-num)', LBRACE: 'var(--tk-sym)', RBRACE: 'var(--tk-sym)', SEMI: 'var(--tk-sym)', ASSIGN: 'var(--tk-sym)', COMMENT: 'var(--tk-com)', WS: 'var(--ink)', ERROR: 'var(--ink)' };
+    const hl = src => TC.lex(src).pieces.map(p => ({ text: p.text, color: p.type === 'IDENT' && N.includes(p.text.toUpperCase()) ? 'var(--ink)' : (TYPE[p.type] || 'var(--ink)') }));
+    const commands = [
+      ['MOVE n;', `Move forward n steps, ${L.MOVE[0]} to ${L.MOVE[1]}. Draws a line while the pen is down.`, 'MOVE 100;'],
+      ['TURN n;', `Turn right n degrees, ${L.TURN[0]} to ${L.TURN[1]}. A negative n turns left.`, 'TURN -90;'],
+      ['PEN colour;', `Change the pen to one of the ${N.length} colours.`, 'PEN BLUE;'],
+      ['PENUP;', 'Lift the pen. Moves after this draw nothing.', 'PENUP;'],
+      ['PENDOWN;', 'Put the pen back down.', 'PENDOWN;'],
+      ['SET name = n;', 'Give a number a name. Each name can be SET once, before it is used.', 'SET side = 150;'],
+      ['REPEAT n { … }', `Run the commands inside n times, ${L.REPEAT[0]} to ${L.REPEAT[1]}. Nests ${L.DEPTH} deep at most.`, 'REPEAT 4 { TURN 90; }']
+    ].map(([syntax, does, ex]) => ({ syntax: hl(syntax), does, ex: hl(ex) }));
+    const fmt = n => n.toLocaleString('en-US');
+    const limits = [
+      ['MOVE', `${L.MOVE[0]} to ${L.MOVE[1]}`, 'steps forward'],
+      ['TURN', `${L.TURN[0]} to ${L.TURN[1]}`, 'degrees; below 0 turns left'],
+      ['REPEAT', `${L.REPEAT[0]} to ${L.REPEAT[1]}`, 'times round the loop'],
+      ['nesting', `${L.DEPTH} deep`, 'one loop register each'],
+      ['VM steps', fmt(L.STEPS), 'then the machine stops']
+    ].map(([name, range, note]) => ({ name, range, note }));
+    const colours = N.map((c, k) => ({ name: c, code: `COL #${k}`, sw: TCV.ink(c, 'light') }));
+    const tokens = [
+      ['KEYWORD', 'var(--tk-kw)', TC.KEYWORDS.join(' '), 'any case', 'REPEAT'],
+      ['IDENT', 'var(--tk-name)', '[A-Za-z_][A-Za-z0-9_]*', 'not a keyword', 'side'],
+      ['NUMBER', 'var(--tk-num)', '-?[0-9]+', '', '150  -90'],
+      ['LBRACE RBRACE', 'var(--tk-sym)', '{  }', '', '{'],
+      ['SEMI ASSIGN', 'var(--tk-sym)', ';  =', '', ';'],
+      ['WS', 'var(--ink3)', '[ \\t\\r\\n]+', 'skipped', '␣ ↵'],
+      ['COMMENT', 'var(--tk-com)', '#[^\\n]*', 'skipped', '# note']
+    ].map(([tok, color, pat, note, ex]) => ({ tok, color, pat, note, ex, rowColor: note === 'skipped' ? 'var(--ink3)' : 'var(--ink)' }));
+    const grammar = TC.GRAMMAR.map(g => ({ id: g.id, lhs: g.lhs, rhs: g.rhs.join(' ') || 'ε' }));
+    const A = TC.ANALYSIS;
+    const grammarFacts = [`LL(1): one token of lookahead`, A.conflicts.length ? `${A.conflicts.length} table conflicts` : 'No table conflicts', `${TC.NONTERMS.length} nonterminals · ${TC.TERMS.length} terminals with $`];
+    const sem = [
+      ['S1', 'A name must be SET before it is used.'], ['S2', 'A name can be SET only once.'], ['S3', `PEN takes one of the ${N.length} colours.`],
+      ['S4', `MOVE takes ${L.MOVE[0]} to ${L.MOVE[1]}.`], ['S5', `TURN takes ${L.TURN[0]} to ${L.TURN[1]}.`], ['S6', `REPEAT runs ${L.REPEAT[0]} to ${L.REPEAT[1]} times.`],
+      ['S7', `REPEAT nests at most ${L.DEPTH} deep: the machine has 3 loop registers.`], ['S8', 'A colour name can\'t be used as a variable name.'],
+      ['W1', 'A name is SET but never used.'], ['W2', 'A REPEAT has nothing inside, so it does nothing.']
+    ].map(([id, text]) => {
+      const w = id[0] === 'W';
+      return { id, text, glyph: w ? '!' : '✕', dot: w ? 'var(--warn)' : 'var(--bad)', color: w ? 'var(--warn)' : 'var(--p3-ink)', bg: w ? 'var(--warnbg)' : 'transparent', level: w ? 'Warning.' : '' };
+    });
+    const opt = [
+      ['O1', 'Swap a SET name for its value.', 'move side', 'move 150'],
+      ['O2', 'Delete what nothing reads, or what is replaced before anything is drawn.', 'color BLUE; color PINK', 'color PINK'],
+      ['O3', 'Delete a set that changes nothing, like a full turn.', 'turn 360', '(deleted)'],
+      ['O4', 'Join neighbouring moves or turns; shorten big turns.', 'turn 100; turn 44', 'turn 144'],
+      ['O5', 'REPEAT 1 keeps only its body; an empty loop goes.', 'REPEAT 3 { }', '(deleted)'],
+      ['O6', 'Move a colour or pen set out of a loop.', 'color YELLOW inside REPEAT 6', 'color YELLOW before it']
+    ].filter(([id]) => TC.OPT_RULES[id]).map(([id, what, before, after]) => ({ id, name: TC.OPT_RULES[id], what, before, after }));
+    const ISA = { FWD: ['#n', 'move forward n'], RGT: ['#n', 'turn right n°'], LFT: ['#n', 'turn left n°'], COL: ['#c', `set the pen colour (0–${N.length - 1})`], PUP: ['', 'lift the pen'], PDN: ['', 'put the pen down'], LDI: ['Rr, #n', 'load n into a register'], DEC: ['Rr', 'take 1 from a register'], JLE: ['Rr, addr', 'jump if the register ≤ 0'], JMP: ['addr', 'jump'], HLT: ['', 'stop'] };
+    const isa = Object.entries(TC.OPCODES).map(([mn, op]) => ({ mn, hex: TC.hex(op, 2), args: (ISA[mn] || [])[0] || '—', does: (ISA[mn] || [])[1] || '' }));
+    const v = 150, bytes = [TC.OPCODES.FWD, 0, (v >> 8) & 255, v & 255].map(b => TC.hex(b, 2));
+    const enc = ['opcode', 'register', 'operand high', 'operand low'].map((label, k) => ({ label, hex: bytes[k], bg: k ? 'var(--surface2)' : 'var(--p6-soft)', border: k ? 'var(--line)' : 'color-mix(in oklab, var(--p6) 45%, var(--line))', color: k ? 'var(--ink)' : 'var(--p6-ink)' }));
+    const cli = [
+      ['turtlec', ' file.turtle', 'Compile the program through all six phases and run it.'],
+      ['turtlec', ' file.turtle --phase <lex|parse|sem|ir|opt|gen|run>', 'Show what one phase made: tokens, the parse tree, the checks, three-address code, the optimized code, machine code, or the run.'],
+      ['turtlec', ' file.turtle --svg out.svg', 'Save the drawing as an SVG picture.'],
+      ['turtlec', ' file.turtle --bin out.tvm', 'Save the machine code, 4 bytes per instruction.'],
+      ['turtlec', ' run out.tvm', 'Run saved machine code on the Turtle VM.'],
+      ['turtlec', ' file.turtle --no-color', 'Plain text output, without terminal colours.']
+    ].map(([cmd, args, does]) => ({ prompt: '$ ', cmd, args, does }));
+    const S = TC.START;
+    return {
+      ...base, commands, limits, colours, tokens, grammar, grammarFacts, sem, opt, isa, enc, cli,
+      colourCount: N.length, ruleCount: TC.GRAMMAR.length,
+      startText: `The turtle starts at (0, 0) facing up, with the pen ${S.pen === 'PENDOWN' ? 'down' : 'up'} and the colour ${S.color}.`,
+      whiteText: `The number after COL # is what the machine code stores. The turtle starts in ${S.color}, which draws in dark ink on this light page.`,
+      encText: `FWD #${v} → ${bytes.join(' ')}`
+    };
+  }
+}
+</script>
+</body>
+</html>
