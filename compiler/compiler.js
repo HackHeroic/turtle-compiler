@@ -392,7 +392,7 @@
     const code = input.map(c => ({ ...c }));
     const log = [];
     const note = (rule, msg, ids, line) => log.push({ rule, msg, ids, line, code: code.map(c => ({ ...c })) });
-    const consts = {};
+    const consts = Object.create(null); // no prototype, so names like __proto__ or toString are plain keys
     code.forEach(c => { if (c.op === 'COPY' && c.role === 'set') consts[c.res] = c.a1; });
     const usesName = c => c.op === 'MOVE' || c.op === 'TURN' || (c.op === 'COPY' && c.role === 'init');
     let changed = true, rounds = 0;
@@ -528,7 +528,7 @@
   }
 
   function codegen(code) {
-    const consts = {};
+    const consts = Object.create(null); // no prototype, so names like __proto__ or toString are plain keys
     code.forEach(c => { if (c.op === 'COPY' && c.role === 'set') consts[c.res] = c.a1; });
     const val = x => isNum(x) ? x : consts[x];
     const prog = [], labels = {}, regs = [], regOf = {}, active = [];
