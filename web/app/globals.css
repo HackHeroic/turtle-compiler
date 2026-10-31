@@ -1,0 +1,4 @@
+/* The page frame the design runtime gives every full-page design (support.js FULL_PAGE_CSS). */
+html, body { height: 100%; margin: 0; }
+#dc-root, #dc-root > .sc-host { height: 100%; }
+@media print { #dc-root, #dc-root > .sc-host { height: auto; } }

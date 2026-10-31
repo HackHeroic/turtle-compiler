@@ -1,0 +1,10 @@
+# A pink star. Two lines here are wasteful on purpose:
+# phase 5 cleans them up.
+SET side = 150;
+PEN BLUE;
+PEN PINK;
+REPEAT 5 {
+  MOVE side;
+  TURN 100;
+  TURN 44;
+}

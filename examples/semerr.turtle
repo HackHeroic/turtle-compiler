@@ -1,0 +1,6 @@
+SET side = 900;
+PEN GOLD;           # not a colour
+REPEAT 0 {          # must run at least once
+  MOVE side;        # 900 is more than 500
+}
+MOVE width;         # width was never SET

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turtle Compiler Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/phase-front.css">
+  <link rel="stylesheet" href="css/phase-middle.css">
+  <link rel="stylesheet" href="css/phase-back.css">
+</head>
+<body>
+  <nav class="topnav" aria-label="Compiler phases">
+    <div class="wrap topnav-in">
+      <a class="brand" href="#top">Turtle<span>Compiler</span></a>
+      <ol class="pipe" id="pipe">
+        <li><a href="#lexer" style="--hue: var(--p1)" data-phase="lex"><b>01</b> Lexer</a></li>
+        <li><a href="#parser" style="--hue: var(--p2)" data-phase="parse"><b>02</b> Parser</a></li>
+        <li><a href="#semantic" style="--hue: var(--p3)" data-phase="sem"><b>03</b> Semantic</a></li>
+        <li><a href="#intermediate" style="--hue: var(--p4)" data-phase="ir"><b>04</b> IR</a></li>
+        <li><a href="#optimizer" style="--hue: var(--p5)" data-phase="opt"><b>05</b> Optimizer</a></li>
+        <li><a href="#codegen" style="--hue: var(--p6)" data-phase="gen"><b>06</b> Code gen</a></li>
+      </ol>
+      <button class="btn theme-btn" id="themeBtn" type="button" aria-label="Switch to light mode">☀ Light</button>
+    </div>
+  </nav>
+
+  <header class="hero wrap" id="top">
+    <div class="hero-text">
+      <p class="eyebrow">Turtle Graphics · a compiler in six phases</p>
+      <h1>Write a drawing. Watch <em>six phases</em> compile it.</h1>
+      <p class="lede">Edit the program below. Every phase of the compiler reruns as you type, from the first token to the machine code that moves the turtle.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap bench" aria-label="Program and drawing">
+      <div class="bench-code card">
+        <div class="bench-bar">
+          <h3 class="card-title">Your program</h3>
+          <div class="samples" id="samples" role="group" aria-label="Example programs"></div>
+        </div>
+        <div class="editor" id="editor">
+          <div class="gutter" id="gutter" aria-hidden="true"></div>
+          <div class="editor-body">
+            <pre class="hl" id="hl" aria-hidden="true"></pre>
+            <textarea id="src" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off" aria-label="Turtle program"></textarea>
+          </div>
+        </div>
+        <div class="bench-status" id="status" aria-live="polite"></div>
+      </div>
+      <div class="bench-out card">
+        <div class="bench-bar">
+          <h3 class="card-title">Drawing</h3>
+          <span class="faint mono" id="outMeta"></span>
+        </div>
+        <canvas id="out" class="out-canvas" aria-label="The drawing your program makes"></canvas>
+        <div class="flow" id="flow" aria-label="Phase results"></div>
+      </div>
+    </section>
+
+    <section class="phase" id="lexer" data-phase="lex" style="--hue: var(--p1)">
+      <div class="wrap">
+        <header class="phase-head">
+          <span class="phase-num">01</span>
+          <div>
+            <p class="phase-kicker">Phase 1 · Lexical analysis</p>
+            <h2>Characters become tokens</h2>
+            <p class="phase-io">Takes <span>source text</span> and gives <span>a token stream</span></p>
+          </div>
+          <span class="phase-status" data-status></span>
+        </header>
+        <div class="phase-grid"><div class="phase-rules"></div><div class="phase-live"></div></div>
+        <div class="phase-improve"></div>
+      </div>
+    </section>
+
+    <section class="phase" id="parser" data-phase="parse" style="--hue: var(--p2)">
+      <div class="wrap">
+        <header class="phase-head">
+          <span class="phase-num">02</span>
+          <div>
+            <p class="phase-kicker">Phase 2 · Syntax analysis</p>
+            <h2>Tokens become a parse tree</h2>
+            <p class="phase-io">Takes <span>a token stream</span> and gives <span>a parse tree</span></p>
+          </div>
+          <span class="phase-status" data-status></span>
+        </header>
+        <div class="phase-grid"><div class="phase-rules"></div><div class="phase-live"></div></div>
+        <div class="phase-improve"></div>
+      </div>
+    </section>
+
+    <section class="phase" id="semantic" data-phase="sem" style="--hue: var(--p3)">
+      <div class="wrap">
+        <header class="phase-head">
+          <span class="phase-num">03</span>
+          <div>
+            <p class="phase-kicker">Phase 3 · Semantic analysis</p>
+            <h2>Is every command allowed?</h2>
+            <p class="phase-io">Takes <span>a parse tree</span> and gives <span>a checked tree + symbol table</span></p>
+          </div>
+          <span class="phase-status" data-status></span>
+        </header>
+        <div class="phase-grid"><div class="phase-rules"></div><div class="phase-live"></div></div>
+        <div class="phase-improve"></div>
+      </div>
+    </section>
+
+    <section class="phase" id="intermediate" data-phase="ir" style="--hue: var(--p4)">
+      <div class="wrap">
+        <header class="phase-head">
+          <span class="phase-num">04</span>
+          <div>
+            <p class="phase-kicker">Phase 4 · Intermediate code generation</p>
+            <h2>The tree becomes three-address code</h2>
+            <p class="phase-io">Takes <span>a checked tree</span> and gives <span>three-address code</span></p>
+          </div>
+          <span class="phase-status" data-status></span>
+        </header>
+        <div class="phase-grid"><div class="phase-rules"></div><div class="phase-live"></div></div>
+        <div class="phase-improve"></div>
+      </div>
+    </section>
+
+    <section class="phase" id="optimizer" data-phase="opt" style="--hue: var(--p5)">
+      <div class="wrap">
+        <header class="phase-head">
+          <span class="phase-num">05</span>
+          <div>
+            <p class="phase-kicker">Phase 5 · Code optimization</p>
+            <h2>Same drawing, less code</h2>
+            <p class="phase-io">Takes <span>three-address code</span> and gives <span>shorter three-address code</span></p>
+          </div>
+          <span class="phase-status" data-status></span>
+        </header>
+        <div class="phase-grid"><div class="phase-rules"></div><div class="phase-live"></div></div>
+        <div class="phase-improve"></div>
+      </div>
+    </section>
+
+    <section class="phase" id="codegen" data-phase="gen" style="--hue: var(--p6)">
+      <div class="wrap">
+        <header class="phase-head">
+          <span class="phase-num">06</span>
+          <div>
+            <p class="phase-kicker">Phase 6 · Code generation</p>
+            <h2>Machine code drives the turtle</h2>
+            <p class="phase-io">Takes <span>optimized code</span> and gives <span>Turtle machine code</span></p>
+          </div>
+          <span class="phase-status" data-status></span>
+        </header>
+        <div class="phase-grid"><div class="phase-rules"></div><div class="phase-live"></div></div>
+        <div class="phase-improve"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p class="faint">Every phase on this page runs in your browser, from one file: <code>js/compiler.js</code>.</p>
+  </footer>
+
+  <script src="js/compiler.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/phase-front.js"></script>
+  <script src="js/phase-middle.js"></script>
+  <script src="js/phase-back.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

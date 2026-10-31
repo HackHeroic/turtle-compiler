@@ -1,0 +1,17 @@
+# Every line here can be simplified. Watch phase 5.
+SET size = 60;
+PENDOWN;            # the pen already starts down
+PEN RED;            # replaced before anything is drawn
+PEN ORANGE;
+REPEAT 1 {          # a loop that runs once
+  MOVE size;
+  MOVE size;        # two moves in a row
+}
+TURN 360;           # a full turn changes nothing
+REPEAT 6 {
+  PEN YELLOW;       # the same colour on every lap
+  TURN 100;
+  TURN -40;         # 100 - 40 = 60
+  MOVE size;
+}
+REPEAT 3 { }        # an empty loop

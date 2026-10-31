@@ -1,0 +1,5 @@
+PEN CYAN;
+REPEAT 4 {
+  MOVE 100          # the ; is missing
+  TURN 90;
+}
