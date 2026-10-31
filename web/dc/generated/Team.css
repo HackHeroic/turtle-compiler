@@ -1,0 +1,13 @@
+/* GENERATED from design/Team.dc.html (its <helmet> styles and style-hover/style-focus rules). */
+
+:root{--bg:oklch(0.975 0.007 85);--surface:oklch(0.995 0.003 85);--surface2:oklch(0.955 0.01 85);--ink:oklch(0.23 0.02 265);--ink2:oklch(0.40 0.02 265);--ink3:oklch(0.50 0.015 265);--line:oklch(0.89 0.01 85);--line2:oklch(0.82 0.012 85);--grid:oklch(0.23 0.02 265 / 0.045);--grid-major:oklch(0.23 0.02 265 / 0.08);--accent:oklch(0.42 0.10 250);--accent-ink:#fff;--good:oklch(0.47 0.11 155);--goodbg:oklch(0.94 0.045 155);--bad:oklch(0.50 0.17 28);--badbg:oklch(0.94 0.04 28);--warn:oklch(0.55 0.13 70);--warnbg:oklch(0.94 0.06 85);--p1:oklch(0.60 0.19 355);--p2:oklch(0.65 0.16 50);--p3:oklch(0.76 0.14 92);--p4:oklch(0.62 0.15 138);--p5:oklch(0.64 0.12 222);--p6:oklch(0.57 0.17 295);--p1-ink:oklch(0.48 0.18 355);--p2-ink:oklch(0.50 0.14 45);--p3-ink:oklch(0.47 0.10 85);--p4-ink:oklch(0.45 0.12 138);--p5-ink:oklch(0.46 0.10 225);--p6-ink:oklch(0.46 0.16 295);--p1-soft:oklch(0.95 0.03 355);--p2-soft:oklch(0.95 0.035 55);--p3-soft:oklch(0.96 0.05 95);--p4-soft:oklch(0.95 0.04 138);--p5-soft:oklch(0.95 0.03 222);--p6-soft:oklch(0.95 0.03 295);--tk-kw:oklch(0.50 0.19 355);--tk-name:oklch(0.48 0.14 258);--tk-num:oklch(0.50 0.11 70);--tk-sym:oklch(0.50 0.12 300);--tk-com:oklch(0.56 0.015 265);--loop1:oklch(0.94 0.035 258);--loop1-edge:oklch(0.55 0.14 258);--loop2:oklch(0.94 0.04 300);--loop2-edge:oklch(0.52 0.15 300);--loop3:oklch(0.94 0.035 200);--loop3-edge:oklch(0.52 0.10 200);--shadow-1:0 1px 2px oklch(0.23 0.02 265 / 0.05);--shadow-2:0 14px 34px -16px oklch(0.23 0.02 265 / 0.25)}
+html,body{margin:0;padding:0;background:var(--bg)}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box;font-variant-ligatures:no-contextual}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button,input,textarea,select{font-family:inherit}
+textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+
