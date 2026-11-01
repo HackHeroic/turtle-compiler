@@ -60,6 +60,8 @@ REPEAT 5 {
 
 Comments start with `#`. The [language reference](https://turtle.muralimadhav.com/reference/) lists the full grammar, every rule and the VM instruction set.
 
+![The language reference page](docs/reference.png)
+
 <details>
 <summary>Grammar (LL(1))</summary>
 
