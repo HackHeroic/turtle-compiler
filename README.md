@@ -115,7 +115,7 @@ web/                   The website (Next.js, static export)
   dc/                  Page components generated from the design files, plus their small runtime
   tools/               dc2jsx (design → React converter) and pixel-diff (visual regression check)
 cli/                   turtlec, the command-line compiler, and its tests
-design/                Source design files the pages are generated from
+design/                Source design files the pages are generated from (Claude Design format)
 examples/              Example programs, including one error demo for each phase that can fail
 demo/                  The first interactive prototype
 docs/                  Screenshots used in this README
@@ -128,7 +128,7 @@ node --test cli/test                 # CLI tests: every phase, errors, SVG, mach
 cd web && node tools/pixel-diff.mjs  # site vs. design, pixel by pixel
 ```
 
-The pixel check renders each design file and the built page in headless Chrome at 1440 px and 390 px wide, in every example state, and compares them. It needs Google Chrome and `npm run build` first. Set `SITE_URL` to check a deployed site instead of the local build.
+The pixel check renders each design file and the built page in headless Chrome at 1440 px and 390 px wide, in every example state, and compares them. It needs Google Chrome, `npm run build` first, and Claude Design's runtime: export the project from Claude Design and copy its `support.js` into `design/` (it isn't part of this repo). Set `SITE_URL` to check a deployed site instead of the local build.
 
 ## Tech stack
 
@@ -148,3 +148,7 @@ The pixel check renders each design file and the built page in headless Chrome a
 | Ravi Yadav | [@RAVIYADAV6522](https://github.com/RAVIYADAV6522) |
 
 Built as the project for the Compiler Design and Automata course.
+
+## License
+
+[MIT](LICENSE)

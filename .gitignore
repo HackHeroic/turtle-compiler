@@ -3,6 +3,7 @@ web/.next/
 web/out/
 web/.pixel-diff/
 .DS_Store
-# Claude Design's runtime, needed only to render the design files locally for pixel diffs
-design/support.js.local-only
+# Claude Design's runtime. It is not ours to redistribute; it is only needed locally to render
+# the design files for the pixel diff (see README, Testing).
+design/support.js
 .claude/
