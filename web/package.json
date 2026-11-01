@@ -2,6 +2,7 @@
   "name": "turtle-compiler-web",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "convert": "node tools/dc2jsx.mjs",
     "dev": "next dev",

@@ -2,7 +2,8 @@
 /* Pixel-diff the built site against the Claude Design files.
 
    Usage: node tools/pixel-diff.mjs [page ...]    pages: home reference team present (default: all that exist)
-   Needs: `npm run build` first (serves ./out), and Google Chrome installed. Set SITE_URL to diff a deployed site.
+   Needs: `npm run build` first (serves ./out), Google Chrome, and Claude Design's runtime at design/support.js
+   (not in the repo; it comes with the Claude Design export). Set SITE_URL to diff a deployed site.
    Writes screenshots and diff images to ./.pixel-diff/ and prints the mismatch per page and width. */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -41,12 +42,29 @@ function serve(dir) {
   });
 }
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const REMOTE = !!process.env.SITE_URL;
+
+// A deployed site behind a CDN can reset a burst of headless loads, so retry with backoff.
+async function open(page, url) {
+  for (let attempt = 1; ; attempt++) {
+    try { return await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }); }
+    catch (e) {
+      if (attempt >= 6 || !/net::ERR_|Timeout/i.test(String(e))) throw e;
+      const wait = 5000 * 2 ** (attempt - 1);
+      console.warn(`  ${url}: ${String(e).match(/net::ERR_\w+|Timeout/i)?.[0]}, retrying in ${wait / 1000}s`);
+      await sleep(wait);
+    }
+  }
+}
+
 async function shoot(browser, url, vp, file, click) {
   const page = await browser.newPage({ viewport: { width: vp.w, height: vp.h }, deviceScaleFactor: 1 });
   const errors = [];
   page.on('pageerror', e => errors.push(String(e)));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
-  await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+  if (REMOTE && !url.startsWith('http://127.0.0.1')) await sleep(2000);
+  await open(page, url);
   await page.evaluate(() => document.fonts.ready);
   // Wait until the design components have rendered (both runtimes add .sc-host wrappers).
   await page.waitForFunction(() => document.querySelectorAll('.sc-host').length > 0 && !document.body.innerText.includes('Loading the compiler'), null, { timeout: 30000 }).catch(() => {});
@@ -69,6 +87,11 @@ function compare(a, b, out) {
 }
 
 const wanted = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(PAGES).filter(k => fs.existsSync(path.join(DESIGN, PAGES[k].design)));
+if (!fs.existsSync(path.join(DESIGN, 'support.js'))) {
+  console.error('design/support.js is missing. It is Claude Design\'s runtime and is not in the repo:\n' +
+    'export the project from Claude Design and copy its support.js into design/, then run this again.');
+  process.exit(2);
+}
 fs.mkdirSync(OUTDIR, { recursive: true });
 // SITE_URL=https://turtle.muralimadhav.com compares the deployed site instead of ./out.
 const d = await serve(DESIGN), s = process.env.SITE_URL ? { base: process.env.SITE_URL.replace(/\/$/, ''), server: { close() {} } } : await serve(path.join(WEB, 'out'));
