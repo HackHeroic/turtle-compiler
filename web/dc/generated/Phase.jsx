@@ -153,9 +153,12 @@ class Component extends DCLogic {
     const s = this.vm.state;
     TCV.draw(c, s.segments, { turtle: { x: s.x, y: s.y, h: s.h }, box: this.box, lastGlow: this.vmOn, ghost: this.props.r.run.segments });
   }
+  onSpeed = e => this.setState({ speed: +e.target.value });
   vmVals(r) {
     const vm = this.vm;
-    if (!vm) return { vm: { regs: [] }, tape: [], canvasRef: this.canvasRef, tapeRef: this.tapeRef };
+    // The speed slider is a controlled input, so it keeps its value and handler before the VM exists.
+    const speed = { speed: this.state.speed, onSpeed: this.onSpeed, speedLabel: `${Component.SPEEDS[this.state.speed - 1].toLocaleString()} steps/s` };
+    if (!vm) return { vm: { regs: [], ...speed }, tape: [], canvasRef: this.canvasRef, tapeRef: this.tapeRef };
     const s = vm.state, prog = r.gen.prog, at = this.vmAt, p = prog[at];
     const lim = !s.halted && s.steps >= TC.LIMITS.STEPS;
     const on = this.vmOn, done = this.vmDone();
@@ -164,8 +167,7 @@ class Component extends DCLogic {
       vm: {
         run: () => this.runVM(), step: () => this.stepVM(), reset: () => this.resetBtn(),
         runLabel: on ? '❚❚  Pause' : done ? '▶\uFE0E  Run again' : '▶\uFE0E  Run', runPressed: on ? 'true' : 'false',
-        speed: this.state.speed, onSpeed: e => this.setState({ speed: +e.target.value }),
-        speedLabel: `${Component.SPEEDS[this.state.speed - 1].toLocaleString()} steps/s`,
+        ...speed,
         status: on ? 'Running' : lim ? 'Stopped at the step limit' : s.halted ? 'Halted' : s.steps ? 'Paused' : 'Ready',
         statusDot: on ? 'var(--hue)' : lim ? 'var(--warn)' : s.halted ? 'var(--good)' : 'var(--ink3)',
         nowAddr: p ? TC.hex(p.addr, 4) : '----', nowAsm: p ? p.text : 'Press Run or Step',
