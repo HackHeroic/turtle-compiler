@@ -8,6 +8,8 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   devIndicators: false,
+  // `next dev` would otherwise write web/AGENTS.md into the working tree on every start.
+  agentRules: false,
   // The design runtime does not use StrictMode; matching it keeps lifecycles identical.
   reactStrictMode: false,
   // compiler/compiler.js lives one level up and is shared with the turtlec CLI.
