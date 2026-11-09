@@ -10,5 +10,8 @@ button,input,textarea,select{font-family:inherit}
 textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 @media print{@page{size:A4 portrait;margin:9mm}html,body{background:#fff!important}[data-print=hide]{display:none!important}[data-print=root]{background-image:none!important;font-size:12px!important;zoom:.45}h1{font-size:40px!important}header[data-print=main]{padding-bottom:14px!important}[data-print=main]{padding:0!important;max-width:none!important}[data-print=grid]{display:block!important;columns:3;column-gap:10px}[data-print=grid]>div{display:block!important}[data-print=grid] section{padding:14px!important;gap:10px!important;border-radius:10px!important;margin-bottom:10px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+/* Compact header on narrow screens: one row instead of two or three. */
+@container (max-width: 560px){.tc-brand-sub{display:none!important}.tc-brand{gap:10px!important}.tc-brand svg{width:36px;height:36px}.tc-brand-name{font-size:20px!important;white-space:nowrap}.tc-nav-links{flex-wrap:nowrap!important}.tc-nav-links a{min-height:36px!important;padding:0 12px!important;font-size:13px!important}}
+@container (max-width: 460px){.tc-brand-name{display:none!important}}
 
 .scp-language-reference-0:hover{background: var(--ink2) !important}
