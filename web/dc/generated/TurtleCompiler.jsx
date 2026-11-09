@@ -29,8 +29,23 @@ class Component extends DCLogic {
     const s = TCV.SAMPLES.find(x => x.id === id) || TCV.SAMPLES[0];
     this.setState({ src: s.src, sample: s.id }, () => this.compile());
   }
+  // The editor handlers live on the class so the very first render (before the compiler
+  // has run) already has them; a controlled <textarea> without onChange is read-only.
+  onInput = e => { this.edit(e.target.value); };
+  onKeyDown = e => {
+    if (e.key !== 'Tab' || e.shiftKey || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    const ta = e.target, s = ta.selectionStart, en = ta.selectionEnd;
+    this.edit(ta.value.slice(0, s) + '  ' + ta.value.slice(en), () => { const el = this.taRef.current; if (el) el.selectionStart = el.selectionEnd = s + 2; });
+  };
+  edit(v, cb) {
+    this.setState({ src: v, sample: null }, cb);
+    clearTimeout(this.t);
+    this.t = setTimeout(() => this.compile(), 220);
+  }
   compile() {
     clearTimeout(this.t);
+    if (!window.TC) return;
     let r;
     try { r = TC.compile(this.state.src); } catch (e) { this.setState({ crash: e.message }); return; }
     const good = r.stopAt ? (this.state.good || TC.compile(TCV.SAMPLES[0].src)) : r;
@@ -46,7 +61,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const ready = !!(window.TC && window.TCV) && !!this.state.r;
-    const base = { phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', lineCount: '' };
+    const base = { phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, onInput: this.onInput, onKeyDown: this.onKeyDown, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', lineCount: '' };
     if (!ready) return base;
     const { r, good, src, sample } = this.state;
     const P = TCV.PHASES;
@@ -110,15 +125,7 @@ class Component extends DCLogic {
       ok: !stopped, stopped, stop, okText, meta, metaColor: stopped ? 'var(--ink2)' : 'var(--ink3)',
       canvasFilter: stopped ? 'grayscale(1)' : 'none', canvasOp: stopped ? 0.45 : 1,
       liveDot: stopped ? 'var(--bad)' : 'var(--good)', liveText: 'Recompiles as you type',
-      lineCount: `${TCV.plural(nLines, 'line')}`,
-      onInput: e => { const v = e.target.value; this.setState({ src: v, sample: null }); clearTimeout(this.t); this.t = setTimeout(() => this.compile(), 220); },
-      onKeyDown: e => {
-        if (e.key !== 'Tab' || e.shiftKey || e.metaKey || e.ctrlKey) return;
-        e.preventDefault();
-        const ta = e.target, s = ta.selectionStart, en = ta.selectionEnd, v = ta.value.slice(0, s) + '  ' + ta.value.slice(en);
-        this.setState({ src: v, sample: null }, () => { const el = this.taRef.current; if (el) el.selectionStart = el.selectionEnd = s + 2; });
-        clearTimeout(this.t); this.t = setTimeout(() => this.compile(), 220);
-      }
+      lineCount: `${TCV.plural(nLines, 'line')}`
     };
   }
 }
