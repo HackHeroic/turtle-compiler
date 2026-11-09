@@ -146,9 +146,11 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;">
         <a ref="{{ backRef }}" href="Turtle Compiler.dc.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600; text-decoration: none;"><span aria-hidden="true">←</span>Back to the site</a>
-        <span style="margin-left: auto; font: 500 14px/1 'JetBrains Mono', monospace; color: var(--ink3);">{{ counter }}</span>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 16px;">
+        <span style="font: 500 14px/1 'JetBrains Mono', monospace; color: var(--ink3);">{{ counter }}</span>
         <button type="button" onClick="{{ prev }}" disabled="{{ atFirst }}" aria-label="Previous slide" style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line2); background: var(--surface); color: var(--ink); font-size: 18px; font-weight: 600; cursor: pointer; opacity: {{ prevOp }};" style-hover="border-color: var(--ink2)">←</button>
         <button type="button" onClick="{{ next }}" disabled="{{ atLast }}" style="display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: 10px; border: none; background: var(--ink); color: var(--surface); font-size: 15px; font-weight: 600; cursor: pointer; opacity: {{ nextOp }};">{{ nextLabel }}<span aria-hidden="true">→</span></button>
+        </div>
       </div>
     </div>
   </main>
