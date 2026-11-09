@@ -13,5 +13,7 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
 /* Compact header on narrow screens: one row instead of two or three. */
 @container (max-width: 560px){.tc-brand-sub{display:none!important}.tc-brand{gap:10px!important}.tc-brand svg{width:36px;height:36px}.tc-brand-name{font-size:20px!important;white-space:nowrap}.tc-nav-links{flex-wrap:nowrap!important}.tc-nav-links a{min-height:36px!important;padding:0 12px!important;font-size:13px!important}}
 @container (max-width: 460px){.tc-brand-name{display:none!important}}
+/* Phase pills scroll sideways on narrow screens: fade the end so it reads as scrollable. */
+@container (max-width: 900px){.tc-phase-row{padding-right:40px!important;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}}
 
 .scp-language-reference-0:hover{background: var(--ink2) !important}
