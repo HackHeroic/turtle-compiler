@@ -43,9 +43,9 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
         </div>
       </div>
       <div role="list" aria-label="Phases" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin;">
-        <a role="listitem" href="#workbench" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">Workbench</a>
+        <a role="listitem" href="#workbench" aria-current="{{ wb.current }}" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid {{ wb.border }}; background: {{ wb.bg }}; transition: background .2s ease-out, border-color .2s ease-out; color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">Workbench</a>
         <sc-for list="{{ phases }}" as="p" hint-placeholder-count="6">
-          <a role="listitem" href="#{{ p.id }}" aria-label="Phase {{ p.n }}, {{ p.name }}: {{ p.sum }}" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid {{ p.hue }}; background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+          <a role="listitem" href="#{{ p.id }}" aria-current="{{ p.current }}" aria-label="Phase {{ p.n }}, {{ p.name }}: {{ p.sum }}" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border-style: solid; border-width: 1px 1px 2px; border-color: {{ p.navBorder }} {{ p.navBorder }} {{ p.hue }}; background: {{ p.navBg }}; transition: background .2s ease-out, border-color .2s ease-out; color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
             <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: {{ p.hueInk }};">0{{ p.n }}</span>{{ p.short }}<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{ p.dot }}; box-shadow: {{ p.dotRing }};"></span>
           </a>
         </sc-for>
@@ -157,7 +157,7 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;example&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;star&quot;, &quot;square&quot;, &quot;flower&quot;, &quot;play&quot;, &quot;lexerr&quot;, &quot;synerr&quot;, &quot;semerr&quot;, &quot;empty&quot;], &quot;default&quot;: &quot;star&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Program&quot;}, &quot;handoffs&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot;}}">
 class Component extends DCLogic {
-  state = { src: '', sample: null, r: null, good: null, crash: null };
+  state = { src: '', sample: null, r: null, good: null, crash: null, here: null };
   canvasRef = React.createRef();
   taRef = React.createRef();
 
@@ -165,8 +165,24 @@ class Component extends DCLogic {
     const ok = () => window.TC && window.TCV;
     const go = () => { this.load(this.props.example ?? 'star'); };
     if (ok()) go(); else this.wait = setInterval(() => { if (ok()) { clearInterval(this.wait); go(); } }, 40);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll);
   }
-  componentWillUnmount() { clearInterval(this.wait); clearTimeout(this.t); if (this.ro) this.ro.disconnect(); }
+  // Scroll-spy: which section is under the sticky nav, so its pill can be highlighted.
+  onScroll = () => { if (!this.spyQueued) { this.spyQueued = true; requestAnimationFrame(() => { this.spyQueued = false; this.spy(); }); } };
+  spy() {
+    const nav = document.querySelector('nav[aria-label="Main"]');
+    if (!nav || !window.TCV) return;
+    const line = nav.getBoundingClientRect().bottom + 24;
+    let here = null;
+    for (const id of ['workbench', ...TCV.PHASES.map(p => p.id)]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= line) here = id; }
+    if (here === this.state.here) return;
+    this.setState({ here });
+    // Keep the highlighted pill visible when the pill row scrolls sideways (phones).
+    const row = nav.querySelector('[aria-label="Phases"]'), pill = here && row && row.querySelector(`a[href="#${here}"]`);
+    if (pill) { const r = row.getBoundingClientRect(), b = pill.getBoundingClientRect(); if (b.left < r.left || b.right > r.right) row.scrollTo({ left: row.scrollLeft + b.left - r.left - 16, behavior: 'smooth' }); }
+  }
+  componentWillUnmount() { clearInterval(this.wait); clearTimeout(this.t); if (this.ro) this.ro.disconnect(); window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); }
   componentDidUpdate(prev) {
     if (prev.example !== this.props.example && window.TC) this.load(this.props.example ?? 'star');
     const c = this.canvasRef.current;
@@ -209,7 +225,9 @@ class Component extends DCLogic {
 
   renderVals() {
     const ready = !!(window.TC && window.TCV) && !!this.state.r;
-    const base = { phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, onInput: this.onInput, onKeyDown: this.onKeyDown, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', liveColor: 'var(--ink3)', lineCount: '' };
+    const wbOn = this.state.here === 'workbench';
+    const wb = { current: wbOn ? 'location' : 'false', bg: wbOn ? 'var(--surface2)' : 'var(--surface)', border: wbOn ? 'var(--ink2)' : 'var(--line)' };
+    const base = { wb, phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, onInput: this.onInput, onKeyDown: this.onKeyDown, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', liveColor: 'var(--ink3)', lineCount: '' };
     if (this.state.crash && !this.state.r) return { ...base, liveDot: 'var(--bad)', liveColor: 'var(--bad)', liveText: `The compiler crashed: ${this.state.crash}` };
     if (!ready) return base;
     const { r, good, src, sample } = this.state;
@@ -249,6 +267,9 @@ class Component extends DCLogic {
       const next = P[p.n];
       return {
         n: p.n, id: p.id, name: p.name, short: p.short, r,
+        current: this.state.here === p.id ? 'location' : 'false',
+        navBg: this.state.here === p.id ? `color-mix(in oklab, var(--p${p.n}) 14%, var(--surface))` : 'var(--surface)',
+        navBorder: this.state.here === p.id ? `var(--p${p.n})` : 'var(--line)',
         hue: `var(--p${p.n})`, hueInk: `var(--p${p.n}-ink)`, nextHue: next ? `var(--p${next.n})` : 'transparent',
         sum: st === 'skipped' ? 'Skipped' : sum, glyph: S.glyph, dot: S.dot, dotRing: st === 'skipped' ? 'inset 0 0 0 1.5px var(--ink3)' : 'none',
         cardBg: st === 'skipped' ? 'transparent' : 'var(--surface)', bstyle: st === 'skipped' ? 'dashed' : 'solid', top: st === 'skipped' ? 'var(--line2)' : `var(--p${p.n})`, numColor: st === 'skipped' ? 'var(--ink3)' : `var(--p${p.n}-ink)`,
