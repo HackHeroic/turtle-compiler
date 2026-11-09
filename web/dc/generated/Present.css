@@ -9,6 +9,9 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
 button,input,textarea,select{font-family:inherit}
 textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+/* Compact header on narrow screens: one row instead of two or three. */
+@container (max-width: 560px){.tc-brand-sub{display:none!important}.tc-brand{gap:10px!important}.tc-brand svg{width:36px;height:36px}.tc-brand-name{font-size:20px!important;white-space:nowrap}.tc-nav-links{flex-wrap:nowrap!important}.tc-nav-links a{min-height:36px!important;padding:0 12px!important;font-size:13px!important}}
+@container (max-width: 460px){.tc-brand-name{display:none!important}}
 
 .scp-present-0:hover{background: var(--ink2) !important;color: var(--surface) !important}
 .scp-present-1:hover{border-color: var(--ink2) !important}
