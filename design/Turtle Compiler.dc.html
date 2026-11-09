@@ -75,7 +75,7 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
       <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; min-width: 0; overflow: hidden;">
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line);">
           <label for="tc-src" style="font-family: 'Newsreader', serif; font-size: 22px; font-weight: 500;">Your program</label>
-          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink3);"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: {{ liveDot }};"></span>{{ liveText }}</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: {{ liveColor }};"><span aria-hidden="true" style="flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: {{ liveDot }};"></span>{{ liveText }}</span>
           <span style="margin-left: auto; font: 500 13px/1 'JetBrains Mono', monospace; color: var(--ink3);">{{ lineCount }}</span>
         </div>
         <div style="flex: 1; max-height: 480px; min-height: 260px; overflow: auto; background: var(--surface);">
@@ -209,7 +209,8 @@ class Component extends DCLogic {
 
   renderVals() {
     const ready = !!(window.TC && window.TCV) && !!this.state.r;
-    const base = { phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, onInput: this.onInput, onKeyDown: this.onKeyDown, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', lineCount: '' };
+    const base = { phases: [], demos: [], errs: [], gutter: [], pieces: [], tail: '', src: this.state.src, taRef: this.taRef, onInput: this.onInput, onKeyDown: this.onKeyDown, canvasRef: this.canvasRef, ok: false, stopped: false, stop: {}, okText: '', meta: '', metaColor: 'var(--ink3)', canvasFilter: 'none', canvasOp: 1, liveDot: 'var(--ink3)', liveText: 'Loading the compiler…', liveColor: 'var(--ink3)', lineCount: '' };
+    if (this.state.crash && !this.state.r) return { ...base, liveDot: 'var(--bad)', liveColor: 'var(--bad)', liveText: `The compiler crashed: ${this.state.crash}` };
     if (!ready) return base;
     const { r, good, src, sample } = this.state;
     const P = TCV.PHASES;
@@ -273,6 +274,8 @@ class Component extends DCLogic {
       ok: !stopped, stopped, stop, okText, meta, metaColor: stopped ? 'var(--ink2)' : 'var(--ink3)',
       canvasFilter: stopped ? 'grayscale(1)' : 'none', canvasOp: stopped ? 0.45 : 1,
       liveDot: stopped ? 'var(--bad)' : 'var(--good)', liveText: 'Recompiles as you type',
+      // If the compiler itself throws, say so instead of quietly showing the last result.
+      ...(this.state.crash ? { liveDot: 'var(--bad)', liveColor: 'var(--bad)', liveText: `The compiler crashed: ${this.state.crash}` } : {}),
       lineCount: `${TCV.plural(nLines, 'line')}`
     };
   }
