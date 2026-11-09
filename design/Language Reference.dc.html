@@ -26,6 +26,8 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
 /* Compact header on narrow screens: one row instead of two or three. */
 @container (max-width: 560px){.tc-brand-sub{display:none!important}.tc-brand{gap:10px!important}.tc-brand svg{width:36px;height:36px}.tc-brand-name{font-size:20px!important;white-space:nowrap}.tc-nav-links{flex-wrap:nowrap!important}.tc-nav-links a{min-height:36px!important;padding:0 12px!important;font-size:13px!important}}
 @container (max-width: 460px){.tc-brand-name{display:none!important}}
+/* Phase pills scroll sideways on narrow screens: fade the end so it reads as scrollable. */
+@container (max-width: 900px){.tc-phase-row{padding-right:40px!important;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}}
 </style>
 </helmet>
 <div id="top" data-print="root" style="container-type: inline-size; min-height: 100vh; background-color: var(--bg); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 28px 28px; color: var(--ink); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.5;">
@@ -43,7 +45,7 @@ textarea::selection{background:oklch(0.42 0.10 250 / 0.22)}
           <a href="Present.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;">Present</a>
         </div>
       </div>
-      <div role="list" aria-label="Phases" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin;">
+      <div role="list" aria-label="Phases" class="tc-phase-row" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin;">
         <a role="listitem" href="Turtle Compiler.dc.html#workbench" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">Workbench</a>
         <a role="listitem" href="Turtle Compiler.dc.html#lexer" aria-label="Phase 1, Lexical analysis" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border-radius: 999px; border: 1px solid var(--line); border-bottom: 2px solid var(--p1); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;">
           <span style="font-family: 'Newsreader', serif; font-size: 18px; font-weight: 600; color: var(--p1-ink);">01</span>Lexer<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--p1); box-shadow: none;"></span>
