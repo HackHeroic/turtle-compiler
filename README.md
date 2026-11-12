@@ -1,6 +1,9 @@
 # Turtle Compiler
 
-**A compiler for a small turtle-graphics language that you can watch work.** Type a program and all six phases of a real compiler run on every keystroke: lexical analysis, syntax analysis, semantic analysis, intermediate code generation, code optimization and code generation for a small virtual machine, which then draws the picture.
+**A compiler for a small turtle-graphics language that you can watch work.** Type a program
+and all six phases of a real compiler run on every keystroke: lexical analysis, syntax
+analysis, semantic analysis, intermediate code generation, code optimization and code
+generation for a small virtual machine, which then draws the picture.
 
 **Live site: [turtle.muralimadhav.com](https://turtle.muralimadhav.com)**
 
@@ -17,11 +20,17 @@ REPEAT 5 {
 
 ## Highlights
 
-- **Six phases, every output visible.** Tokens, the LL(1) parse table and trace, the parse tree, the symbol table, three-address code, each optimization step and the final machine code are all shown on the page.
-- **Rules you can read.** Each phase lists the rules it applies, and every check, rewrite and error message points back to one of them.
-- **Runs entirely in the browser.** Nothing is sent to a server. The compiler is one plain JavaScript file with no dependencies.
-- **Same compiler on the command line.** `turtlec` prints any phase, saves the drawing as SVG and writes machine code that it can run again.
-- **Checked end to end.** After optimizing, both versions are run on the VM to confirm they draw exactly the same picture, and the CLI has its own test suite.
+- **Six phases, every output visible.** Tokens, the LL(1) parse table and trace, the parse
+  tree, the symbol table, three-address code, each optimization step and the final machine
+  code are all shown on the page.
+- **Rules you can read.** Each phase lists the rules it applies, and every check, rewrite
+  and error message points back to one of them.
+- **Runs entirely in the browser.** Nothing is sent to a server. The compiler is one plain
+  JavaScript file with no dependencies.
+- **Same compiler on the command line.** `turtlec` prints any phase, saves the drawing as
+  SVG and writes machine code that it can run again.
+- **Checked end to end.** After optimizing, both versions are run on the VM to confirm they
+  draw exactly the same picture, and the CLI has its own test suite.
 
 ## The six phases
 
@@ -58,7 +67,9 @@ REPEAT 5 {
 | `SET name = n;` | Name a constant. Each name can be set once. |
 | `REPEAT n { … }` | Run the body `n` times (1 to 100), nested at most 3 deep. |
 
-Comments start with `#`. The [language reference](https://turtle.muralimadhav.com/reference/) lists the full grammar, every rule and the VM instruction set.
+Comments start with `#`. The
+[language reference](https://turtle.muralimadhav.com/reference/) lists the full grammar,
+every rule and the VM instruction set.
 
 ![The language reference page](docs/reference.png)
 
@@ -102,7 +113,8 @@ node cli/turtlec.js examples/star.turtle --svg star.svg --bin star.tvm
 node cli/turtlec.js run star.tvm                             # run saved machine code
 ```
 
-Errors are reported as `file:line:col` with the source line, a caret and a hint. See [`cli/README.md`](cli/README.md) for every option.
+Errors are reported as `file:line:col` with the source line, a caret and a hint. See
+[`cli/README.md`](cli/README.md) for every option.
 
 ![The workbench: editor, live status and drawing](docs/workbench.png)
 
@@ -128,7 +140,11 @@ node --test cli/test                 # CLI tests: every phase, errors, SVG, mach
 cd web && node tools/pixel-diff.mjs  # site vs. design, pixel by pixel
 ```
 
-The pixel check renders each design file and the built page in headless Chrome at 1440 px and 390 px wide, in every example state, and compares them. It needs Google Chrome, `npm run build` first, and Claude Design's runtime: export the project from Claude Design and copy its `support.js` into `design/` (it isn't part of this repo). Set `SITE_URL` to check a deployed site instead of the local build.
+The pixel check renders each design file and the built page in headless Chrome at 1440 px
+and 390 px wide, in every example state, and compares them. It needs Google Chrome and
+`npm run build` first, as well as Claude Design's runtime: export the project from Claude
+Design and copy its `support.js` into `design/` (it isn't part of this repo). Set `SITE_URL`
+to check a deployed site instead of the local build.
 
 ## Tech stack
 
