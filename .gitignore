@@ -7,3 +7,8 @@ web/.pixel-diff/
 # the design files for the pixel diff (see README, Testing).
 design/support.js
 .claude/
+
+# LaTeX build output
+paper/*.log
+paper/*.aux
+paper/main.pdf

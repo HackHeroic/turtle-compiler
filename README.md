@@ -5,7 +5,7 @@ and all six phases of a real compiler run on every keystroke: lexical analysis, 
 analysis, semantic analysis, intermediate code generation, code optimization and code
 generation for a small virtual machine, which then draws the picture.
 
-**Live site: [turtle.muralimadhav.com](https://turtle.muralimadhav.com)**
+**Live site: [turtle.muralimadhav.com](https://turtle.muralimadhav.com)** · **Paper: [IEEE format report (PDF)](paper/turtle_compiler_ieee.pdf)**
 
 ![The Turtle Compiler website](docs/hero.png)
 
@@ -131,6 +131,7 @@ design/                Source design files the pages are generated from (Claude 
 examples/              Example programs, including one error demo for each phase that can fail
 demo/                  The first interactive prototype
 docs/                  Screenshots used in this README
+paper/                 The IEEE format report: LaTeX source, figures and the compiled PDF
 ```
 
 ## Testing
